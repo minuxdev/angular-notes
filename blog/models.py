@@ -7,23 +7,9 @@ from django.utils.text import slugify
 User = get_user_model()
 
 
-def validate_empty_string(value):
-    if not value:
-        raise ValidationError(
-            "This field cannot be empty.", params={"value": value}
-        )
-
-
 class Category(models.Model):
-    name = models.CharField(
-        max_length=100, unique=True, validators=[validate_empty_string]
-    )
+    name = models.CharField(max_length=100, unique=True)
     total_post = models.IntegerField(verbose_name="total posts", default=0)
-
-    #    def save(self, *args, **kwargs):
-    #        if not self.name:
-    #            raise ValueError("Cannot create category with empty name.")
-    #        return super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
