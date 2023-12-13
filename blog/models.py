@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.text import slugify
 
@@ -16,7 +17,7 @@ class Category(models.Model):
 
 
 class Article(models.Model):
-    author = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    author = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=True)
     category = models.ForeignKey(to=Category, on_delete=models.CASCADE)
     topic = models.CharField(max_length=255, unique=True)
     body = models.TextField()
@@ -46,3 +47,6 @@ class Article(models.Model):
 
     def __str__(self):
         return self.topic
+
+    def get_absolute_url(self):
+        return reverse("blog:article_details", kwargs={"slug": self.slug})

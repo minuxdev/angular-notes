@@ -1,6 +1,33 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+
+from blog.forms import ArticleForm
+from blog.models import Article
 
 
 def home(request):
-    return HttpResponse("Hello world!")
+    articles = Article.objects.all()
+    context = {"articles": articles}
+    return render(request, "blog/home.html", context=context)
+
+
+def article_create(request):
+    if request.method == "POST":
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            article = form.save(commit=False)
+            article.author = request.user
+            article.save()
+            return redirect(article.get_absolute_url())
+    form = ArticleForm()
+    return render(request, "blog/article_create.html", {"form": form})
+
+
+def get_article(slug):
+    return Article.objects.get(slug=slug)
+
+
+def article_details(request, slug):
+    article = get_article(slug)
+    context = {"article": article}
+    return render(request, "blog/article_details.html", context=context)

@@ -74,13 +74,6 @@ class ArticleFormTest(TestCase):
         form = ArticleForm(data=self.form_data)
         self.assertTrue(form.is_valid())
 
-    def test_invalid_form_author(self):
-        """Test if form is invalid for author=None"""
-
-        self.form_data["author"] = None
-        form = ArticleForm(data=self.form_data)
-        self.assertFalse(form.is_valid())
-
     def test_invalid_form_category(self):
         """Test if form is invalid for category=None"""
 
