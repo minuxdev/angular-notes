@@ -18,3 +18,4 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = ("author", "category", "topic", "views", "updated_on")
     list_filter = ("author", "category", "topic")
     ordering = ("-updated_on", "-id")
+    readonly_fields = ("slug",)
