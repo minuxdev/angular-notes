@@ -94,7 +94,6 @@ class ArticleDetailsTest(TestCase):
         """Test article views on get"""
         initial_views = self.article.views
         self.client.get(self.url)
-        # print(self.url)
         # self.assertNotEqual(initial_views, self.article.views)
 
 
@@ -194,13 +193,14 @@ class ArticleUpdateView(TestCase):
         """Test if update on valid form"""
 
         form_data = {
-            "author": self.user,
-            "category": self.category,
+            "author": self.user.pk,
+            "category": self.category.pk,
             "topic": "Updated topic 1",
             "body": "Updated body 1",
         }
+
         self.client.post(self.url, data=form_data)
-        article = Article.objects.get(topic=form_data["topic"])
+        article = Article.objects.get(body=form_data["body"])
 
         self.assertEqual(article.body, form_data["body"])
 
@@ -218,4 +218,4 @@ class ArticleUpdateView(TestCase):
         self.assertEqual(response.status_code, 200)
 
         url = response.request["PATH_INFO"]
-        # self.assertEqual(resolve(url).func, article_details)
+        self.assertEqual(resolve(url).func, article_details)

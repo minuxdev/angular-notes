@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
 from blog.forms import ArticleForm
@@ -23,26 +22,23 @@ def article_create(request):
     return render(request, "blog/article_create.html", {"form": form})
 
 
-def get_article(slug):
-    return Article.objects.get(slug=slug)
-
-
 def article_details(request, slug):
     article = get_article(slug)
     article.views += 1
-    print(article.views)
     article.save()
     context = {"article": article}
     return render(request, "blog/article_details.html", context=context)
 
 
+def get_article(slug):
+    return Article.objects.get(slug=slug)
+
+
 def article_update(request, slug):
     article = get_article(slug)
-    form = ArticleForm(request.POST or None, instance=article)
+    form = ArticleForm(data=request.POST or None, instance=article)
     if form.is_valid():
-        print(form.data)
-        article = form.save()
-        print(article)
+        form.save()
         return redirect(article.get_absolute_url())
 
     context = {"form": form}
