@@ -94,6 +94,9 @@ class ArticleDetailsTest(TestCase):
         """Test article views on get"""
         initial_views = self.article.views
         self.client.get(self.url)
+        print(initial_views, self.article.views)
+        self.client.get(self.url)
+        print(initial_views, self.article.views)
         # self.assertNotEqual(initial_views, self.article.views)
 
 

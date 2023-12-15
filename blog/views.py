@@ -24,8 +24,16 @@ def article_create(request):
 
 def article_details(request, slug):
     article = get_article(slug)
-    article.views += 1
-    article.save()
+    id_ = article.pk
+
+    instance_id = request.session.get(f"instance_{id_}", 0)
+    print("obj_id: ", instance_id)
+    if instance_id != article.pk:
+        article.views += 1
+        article.save()
+        print("Visited oject: ", article, "views: ", article.views)
+        request.session[f"instance_{id_}"] = article.pk
+
     context = {"article": article}
     return render(request, "blog/article_details.html", context=context)
 
