@@ -29,5 +29,21 @@ def get_article(slug):
 
 def article_details(request, slug):
     article = get_article(slug)
+    article.views += 1
+    print(article.views)
+    article.save()
     context = {"article": article}
     return render(request, "blog/article_details.html", context=context)
+
+
+def article_update(request, slug):
+    article = get_article(slug)
+    form = ArticleForm(request.POST or None, instance=article)
+    if form.is_valid():
+        print(form.data)
+        article = form.save()
+        print(article)
+        return redirect(article.get_absolute_url())
+
+    context = {"form": form}
+    return render(request, "blog/article_create.html", context)

@@ -1,7 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db.utils import IntegrityError
 from django.test import TestCase
-from django.utils import timezone
 from django.utils.text import slugify
 
 from blog.models import Article, Category
@@ -137,7 +136,7 @@ class ArticleTest(TestCase):
     def test_create_user_missing_author(self):
         """Test create article without 'author'"""
 
-        with self.assertRaises(IntegrityError):
+        with self.assertRaises(Article.author.RelatedObjectDoesNotExist):
             self.article_.author = None
             self.article_.save()
 

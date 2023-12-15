@@ -1,9 +1,8 @@
+from autoslug import AutoSlugField
 from django.contrib.auth import get_user_model
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.text import slugify
 
 User = get_user_model()
 
@@ -25,7 +24,15 @@ class Article(models.Model):
     thumbnail = models.ImageField(
         upload_to="thumbnails/", default="default.jpg", null=True, blank=True
     )
-    slug = models.SlugField(max_length=80, null=True, blank=True)
+    slug = AutoSlugField(
+        populate_from="topic",
+        blank=True,
+        null=True,
+        unique=True,
+        always_update=True,
+        default=None,
+        unique_with=["author__username"],
+    )
     created_on = models.DateTimeField(null=True, blank=True)
     updated_on = models.DateTimeField(null=True, blank=True)
     views = models.IntegerField(default=0)
@@ -36,9 +43,6 @@ class Article(models.Model):
 
         if self.created_on:
             self.updated_on = timezone.now()
-
-        if not self.slug:
-            self.slug = slugify(self.topic)
 
         if not self.pk and self.category is not None:
             self.category.total_post += 1
