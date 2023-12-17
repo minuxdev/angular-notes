@@ -1,3 +1,8 @@
+<form action="{% url 'blog:article_search' %}">
+  <<input type="search" placeholder="search..." name="query" />
+  <button>Search</button>
+</form>
+
 <h1>Home page</h1>
 {% for article in articles %}
 
