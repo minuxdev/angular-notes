@@ -5,7 +5,13 @@ from django.urls import resolve
 
 from blog.forms import ArticleForm
 from blog.models import Article, Category
-from blog.views import article_create, article_details, article_update, home
+from blog.views import (
+    article_create,
+    article_details,
+    article_search,
+    article_update,
+    home,
+)
 
 
 class HomeViewTest(TestCase):
@@ -41,6 +47,7 @@ class HomeViewTest(TestCase):
     def test_used_template(self):
         """Test if desired template was used"""
 
+        # Check if the response is successful
         self.assertEqual(self.response.status_code, 200)
         self.assertTemplateUsed(self.response, template_name="blog/home.html")
 
@@ -89,15 +96,6 @@ class ArticleDetailsTest(TestCase):
         """Test if desired template was used"""
 
         self.assertTemplateUsed(self.response, "blog/article_details.html")
-
-    def test_increment_views_on_get(self):
-        """Test article views on get"""
-        initial_views = self.article.views
-        self.client.get(self.url)
-        print(initial_views, self.article.views)
-        self.client.get(self.url)
-        print(initial_views, self.article.views)
-        # self.assertNotEqual(initial_views, self.article.views)
 
 
 class ArticleCreateTest(TestCase):
@@ -150,6 +148,7 @@ class ArticleCreateTest(TestCase):
         }
 
         response = self.client.post(self.url, data=form_data, follow=True)
+        # Check if the response is successful
         self.assertEqual(response.status_code, 200)
 
         url = response.request["PATH_INFO"]
@@ -218,7 +217,47 @@ class ArticleUpdateView(TestCase):
         }
 
         response = self.client.post(self.url, data=form_data, follow=True)
+        # Check if the response is successful
         self.assertEqual(response.status_code, 200)
 
         url = response.request["PATH_INFO"]
         self.assertEqual(resolve(url).func, article_details)
+
+
+class ArticleSearchTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.category = Category.objects.create(name="category 1")
+        cls.user = get_user_model().objects.create_user(
+            username="minux", password="test"
+        )
+        cls.article = Article.objects.create(
+            author=cls.user,
+            category=cls.category,
+            topic="This comes from django",
+            body="Django is one of the best Python frameworks. 1",
+        )
+
+    def setUp(self):
+        self.url = reverse("blog:article_search")
+        self.data = {"query": "django"}
+        self.response = self.client.get(self.url, self.data)
+
+    def test_url_resolve(self):
+        """Test if url resolve to article_search"""
+        view = resolve(self.url)
+
+        self.assertEqual(view.func, article_search)
+
+    def test_used_template(self):
+        """Test if article_results template was used"""
+        self.assertTemplateUsed(
+            self.response, template_name="blog/article_results.html"
+        )
+
+    def test_query_parameter_passed_correctly(self):
+        """Test if query parameter is passed through get method correctly"""
+        self.assertContains(self.response, self.data["query"])
+
+    def test_return_correct_entries(self):
+        """Test if entries are correctly returned"""
