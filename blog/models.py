@@ -1,5 +1,6 @@
 from autoslug import AutoSlugField
 from django.contrib.auth import get_user_model
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -22,7 +23,12 @@ class Article(models.Model):
     body = models.TextField()
     posted = models.BooleanField(default=False)
     thumbnail = models.ImageField(
-        upload_to="thumbnails/", null=True, blank=True
+        upload_to="thumbnails/",
+        null=True,
+        blank=True,
+        validators=[
+            FileExtensionValidator(allowed_extensions=["png", "jpg", "jpeg"]),
+        ],
     )
     slug = AutoSlugField(
         populate_from="topic",
@@ -36,6 +42,13 @@ class Article(models.Model):
     created_on = models.DateTimeField(null=True, blank=True)
     updated_on = models.DateTimeField(null=True, blank=True)
     views = models.IntegerField(default=0)
+
+    def thumbnail_url(self):
+        if self.thumbnail:
+            return self.thumbnail.url
+        else:
+            url = "#"
+            return url
 
     def save(self, *args, **kwargs):
         if self.created_on is None and self.posted:

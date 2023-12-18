@@ -1,3 +1,4 @@
+<a href="{% url 'blog:article_create' %}">Create Article</a>
 <form method="post">
   {% csrf_token %}
   <input type="search" placeholder="search..." name="query" />
@@ -15,6 +16,7 @@
     <span>{{article.views}}</span>
   </p>
   <h2><a href="{{article.get_absolute_url}}">{{article.topic}}</a></h2>
+  <img src="{{article.thumbnail_url}}" alt="" />
   <p>{{article.body}}</p>
 </div>
 

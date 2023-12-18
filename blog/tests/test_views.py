@@ -138,15 +138,13 @@ class ArticleCreateTest(TestCase):
     def test_thumbnail_save_imge(self):
         """Test thumbnail size limit to 3Mb"""
 
-        file = b"a" * 4 * 1024 * 1024
+        file = b"a" * 1 * 1024 * 1024
         img = SimpleUploadedFile(
             "img.jpeg", content=file, content_type="image/jpeg"
         )
         self.client.force_login(self.user)
 
-        with open("media/thumbnails/screen-.JPG", "rb"):
-            self.form_data.update({"author": self.user.pk, "thumbnail": img})
-            print(self.form_data)
+        self.form_data.update({"author": self.user.pk, "thumbnail": img})
 
         self.client.post(self.url, self.form_data, format="multipart")
         article = Article.objects.all()

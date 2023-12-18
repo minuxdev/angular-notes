@@ -1,5 +1,4 @@
 from django import forms
-from django.core.validators import FileExtensionValidator, MaxValueValidator
 
 from .models import Article, Category
 
@@ -20,5 +19,7 @@ class ArticleForm(forms.ModelForm):
 
         if thumbnail and thumbnail.size > 3 * 1024**2:
             raise forms.ValidationError("Thumbnail cannot exceed 3.0Mb")
+
+        self.cleaned_data["thumbnail"] = thumbnail
 
         return thumbnail
