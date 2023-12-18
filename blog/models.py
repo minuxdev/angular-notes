@@ -22,7 +22,7 @@ class Article(models.Model):
     body = models.TextField()
     posted = models.BooleanField(default=False)
     thumbnail = models.ImageField(
-        upload_to="thumbnails/", default="default.jpg", null=True, blank=True
+        upload_to="thumbnails/", null=True, blank=True
     )
     slug = AutoSlugField(
         populate_from="topic",
@@ -46,6 +46,7 @@ class Article(models.Model):
 
         if not self.pk and self.category is not None:
             self.category.total_post += 1
+            self.category.save()
 
         return super().save(*args, **kwargs)
 

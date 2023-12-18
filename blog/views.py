@@ -6,28 +6,26 @@ from blog.models import Article
 
 
 def home(request):
-    articles = Article.objects.all()
+    if request.method == "POST":
+        query = request.POST["query"]
+        articles = Article.objects.filter(
+            Q(topic__icontains=query) | Q(body__icontains=query)
+        )
+    else:
+        articles = Article.objects.all()
+
     return render(request, "blog/home.html", context={"articles": articles})
-
-
-def article_search(request):
-    query = request.GET["query"]
-    articles = Article.objects.filter(
-        Q(topic__icontains=query) | Q(body__icontains=query)
-    )
-    return render(
-        request, "blog/article_results.html", context={"articles": articles}
-    )
 
 
 def article_create(request):
     if request.method == "POST":
-        form = ArticleForm(request.POST)
+        form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
             article = form.save(commit=False)
             article.author = request.user
             article.save()
             return redirect(article.get_absolute_url())
+
     form = ArticleForm()
     return render(request, "blog/article_create.html", {"form": form})
 
@@ -40,6 +38,7 @@ def article_details(request, slug):
     if instance_id != article.pk:
         article.views += 1
         article.save()
+        print(article)
         request.session[f"instance_{id_}"] = article.pk
 
     context = {"article": article}

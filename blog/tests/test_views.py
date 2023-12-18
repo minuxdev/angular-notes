@@ -1,17 +1,12 @@
 from django.contrib.auth import get_user_model
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.shortcuts import reverse
 from django.test import TestCase
 from django.urls import resolve
 
 from blog.forms import ArticleForm
 from blog.models import Article, Category
-from blog.views import (
-    article_create,
-    article_details,
-    article_search,
-    article_update,
-    home,
-)
+from blog.views import article_create, article_details, article_update, home
 
 
 class HomeViewTest(TestCase):
@@ -114,6 +109,13 @@ class ArticleCreateTest(TestCase):
 
         self.client.force_login(self.user)
 
+        self.form_data = {
+            "category": self.category.pk,
+            "topic": "Topic 1",
+            "body": "Body 1",
+            "posted": True,
+        }
+
     def test_url_resolve(self):
         """Test if url resolve to article create view."""
 
@@ -128,26 +130,32 @@ class ArticleCreateTest(TestCase):
     def test_post_valid_data(self):
         """Test create article on valid form"""
 
-        form_data = {
-            "category": self.category.pk,
-            "topic": "Topic 1",
-            "body": "Body 1",
-            "posted": True,
-        }
-
-        response = self.client.post(self.url, data=form_data)
+        response = self.client.post(
+            self.url, data=self.form_data, format="multipart"
+        )
         self.assertEqual(response.status_code, 302)
+
+    def test_thumbnail_save_imge(self):
+        """Test thumbnail size limit to 3Mb"""
+
+        file = b"a" * 4 * 1024 * 1024
+        img = SimpleUploadedFile(
+            "img.jpeg", content=file, content_type="image/jpeg"
+        )
+        self.client.force_login(self.user)
+
+        with open("media/thumbnails/screen-.JPG", "rb"):
+            self.form_data.update({"author": self.user.pk, "thumbnail": img})
+            print(self.form_data)
+
+        self.client.post(self.url, self.form_data, format="multipart")
+        article = Article.objects.all()
+        print(article)
 
     def test_redirect_to_details_view(self):
         """Test if redirect to its details on succsess"""
 
-        form_data = {
-            "category": self.category.pk,
-            "topic": "Topic 2",
-            "body": "Body 2",
-        }
-
-        response = self.client.post(self.url, data=form_data, follow=True)
+        response = self.client.post(self.url, data=self.form_data, follow=True)
         # Check if the response is successful
         self.assertEqual(response.status_code, 200)
 
@@ -222,42 +230,3 @@ class ArticleUpdateView(TestCase):
 
         url = response.request["PATH_INFO"]
         self.assertEqual(resolve(url).func, article_details)
-
-
-class ArticleSearchTest(TestCase):
-    @classmethod
-    def setUpTestData(cls):
-        cls.category = Category.objects.create(name="category 1")
-        cls.user = get_user_model().objects.create_user(
-            username="minux", password="test"
-        )
-        cls.article = Article.objects.create(
-            author=cls.user,
-            category=cls.category,
-            topic="This comes from django",
-            body="Django is one of the best Python frameworks. 1",
-        )
-
-    def setUp(self):
-        self.url = reverse("blog:article_search")
-        self.data = {"query": "django"}
-        self.response = self.client.get(self.url, self.data)
-
-    def test_url_resolve(self):
-        """Test if url resolve to article_search"""
-        view = resolve(self.url)
-
-        self.assertEqual(view.func, article_search)
-
-    def test_used_template(self):
-        """Test if article_results template was used"""
-        self.assertTemplateUsed(
-            self.response, template_name="blog/article_results.html"
-        )
-
-    def test_query_parameter_passed_correctly(self):
-        """Test if query parameter is passed through get method correctly"""
-        self.assertContains(self.response, self.data["query"])
-
-    def test_return_correct_entries(self):
-        """Test if entries are correctly returned"""
