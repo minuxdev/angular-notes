@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "blog",
+    "tinymce",
 ]
 
 MIDDLEWARE = [
@@ -108,7 +109,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIR = os.path.join(BASE_DIR, "static")
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -117,3 +118,31 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+TINYMCE_DEFAULT_CONFIG = {
+    "theme": "silver",
+    "resize": "false",
+    "width": "100%",
+    "height": "20rem",
+    "menubar": "file edit view insert format tools table help",
+    "toolbar": """
+    undo redo | bold italic underline strikethrough | 
+    fontselect fontsizeselect formatselect typography codesample | 
+    alignleft aligncenter alignright alignjustify | blockquote numlist bullist checklist | 
+    forecolor backcolor casechange permanentpen formatpainter removeformat | 
+    pagebreak | charmap emoticons | fullscreen  preview save print | 
+    insertfile image media pageembed template link anchor| 
+    a11ycheck ltr rtl | showcomments addcomment code""",
+    "plugins": """
+    advlist autolink lists link image codesample charmap print preview anchor 
+    searchreplace visualblocks code fullscreen insertdatetime media table 
+    advcode help wordcount spellchecker typography""",
+    "codesample_languages": [
+        {"text": "Python", "value": "python"},
+        {"text": "Bash", "value": "sh"},
+        {"text": "Javascript", "value": "javascript"},
+        {"text": "HTML/XML", "value": "markup"},
+        {"text": "CSS", "value": "css"},
+    ],
+}

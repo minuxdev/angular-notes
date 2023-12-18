@@ -4,6 +4,7 @@ from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from tinymce import models as tm
 
 User = get_user_model()
 
@@ -20,7 +21,7 @@ class Article(models.Model):
     author = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=True)
     category = models.ForeignKey(to=Category, on_delete=models.CASCADE)
     topic = models.CharField(max_length=255, unique=True)
-    body = models.TextField()
+    body = tm.HTMLField()
     posted = models.BooleanField(default=False)
     thumbnail = models.ImageField(
         upload_to="thumbnails/",
