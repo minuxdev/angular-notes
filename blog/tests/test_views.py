@@ -1,3 +1,5 @@
+from re import template
+
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.shortcuts import reverse
@@ -6,7 +8,13 @@ from django.urls import resolve
 
 from blog.forms import ArticleForm
 from blog.models import Article, Category
-from blog.views import article_create, article_details, article_update, home
+from blog.views import (
+    article_create,
+    article_details,
+    article_update,
+    dashboard,
+    home,
+)
 
 
 class HomeViewTest(TestCase):
@@ -148,7 +156,6 @@ class ArticleCreateTest(TestCase):
 
         self.client.post(self.url, self.form_data, format="multipart")
         article = Article.objects.all()
-        print(article)
 
     def test_redirect_to_details_view(self):
         """Test if redirect to its details on succsess"""
@@ -228,3 +235,33 @@ class ArticleUpdateView(TestCase):
 
         url = response.request["PATH_INFO"]
         self.assertEqual(resolve(url).func, article_details)
+
+
+class DashboardTest(TestCase):
+    def setUp(self):
+        self.url = reverse("blog:dashboard")
+        self.response = self.client.get(self.url)
+
+    def test_url_resolve(self):
+        """Test if url resolve to article details view."""
+        view = resolve(self.url)
+        self.assertEqual(view.func, dashboard)
+
+    def test_used_template(self):
+        """Test if article_create template was used"""
+        self.assertTemplateUsed(
+            self.response, template_name="blog/dashboard.html"
+        )
+
+    def test_management_links(self):
+        """Test if request as links to manage articles"""
+        self.assertContains(self.response, 'href="#"')
+
+    def test_redirect_to_details_view(self):
+        """Test if delete link redirect to article details view"""
+
+    def test_redirect_to_delete_view(self):
+        """Test if delete link redirect to article delete view"""
+
+    def test_redirect_to_update_view(self):
+        """Test if delete link redirect to article update view"""
