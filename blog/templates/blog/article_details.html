@@ -1,10 +1,15 @@
-<a href="{% url 'blog:home' %}">
-  <p><a href="{% url 'blog:home' %}">Home</a> /{{article.topic}}</p>
-  <p>
-    <span>{{article.author}}</span> | <span>{{article.category}}</span> |
-    <span>{{article.views}}</span>
-  </p>
-  <h1>{{article.topic}}</h1>
-  <img src="{{article.thumbnail_url}}" alt="" />
-  <p>{{article.body}}</p>
-</a>
+{% extends 'base.html' %} {% block content %}
+<p><a href="{% url 'blog:home' %}">Home</a> / {{article.slug}}</p>
+<p>
+  <span>{{article.updated_on}}</span> | <span>{{article.category}}</span> |
+  <span>{{article.views}}</span>
+</p>
+<h1>{{article.topic}}</h1>
+<img src="{{article.thumbnail_url}}" alt="" />
+<p>{{article.body}}</p>
+
+<hr />
+{% for ra in related_articles %}
+<h3><a href="{{ra.get_absolute_url}}">{{ra.topic}}</a></h3>
+<p>{{ra.body|truncatechars:150}}</p>
+{% endfor %} {% endblock %}

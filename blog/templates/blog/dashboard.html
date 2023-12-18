@@ -1,3 +1,4 @@
+{% extends 'base.html' %} {% block content %}
 <h1>Dashboard</h1>
 
 <a href="{% url 'blog:article_create' %}">Create Article</a>
@@ -11,6 +12,7 @@
   </tr>
   {% for article in articles %}
   <tr>
+    <td>{{article.pk}}</td>
     <td>{{article.category}}</td>
     <td>{{article.topic}}</td>
     <td>{{article.views}}</td>
@@ -22,3 +24,5 @@
   </tr>
   {% endfor %}
 </table>
+
+{% endblock %}

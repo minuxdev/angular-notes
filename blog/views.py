@@ -32,7 +32,8 @@ def article_details(request, slug):
         article.save()
         request.session[f"instance_{id_}"] = article.pk
 
-    context = {"article": article}
+    related_articles = Article.objects.all().exclude(slug=slug)[:6]
+    context = {"article": article, "related_articles": related_articles}
     return render(request, "blog/article_details.html", context=context)
 
 

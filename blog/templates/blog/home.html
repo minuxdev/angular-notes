@@ -1,3 +1,4 @@
+{% extends 'base.html' %} {% block content %}
 <a href="{% url 'blog:article_create' %}">Create Article</a>
 <form method="post">
   {% csrf_token %}
@@ -11,14 +12,14 @@
 {% for article in articles %}
 
 <div class="entry">
+  <h2><a href="{{article.get_absolute_url}}">{{article.topic}}</a></h2>
+  <p>{{article.body | truncatechars:150}}</p>
   <p>
     <span>{{article.updated_on}}</span> | <span>{{article.category}}</span> |
     <span>{{article.views}}</span>
   </p>
-  <h2><a href="{{article.get_absolute_url}}">{{article.topic}}</a></h2>
-  <p>{{article.body}}</p>
 </div>
 
 {% endfor %} {% else %}
 <h1>No record found</h1>
-{% endif %}
+{% endif %} {% endblock %}
