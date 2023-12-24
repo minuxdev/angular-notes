@@ -23,7 +23,6 @@ def get_article(slug):
     return Article.objects.get(slug=slug)
 
 
-@login_required()
 @transaction.atomic()
 def article_details(request, slug):
     article = get_article(slug)
