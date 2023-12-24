@@ -1,6 +1,6 @@
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import redirect, render
-from django.utils.translation import get_supported_language_variant
 
 from blog.forms import ArticleForm
 from blog.models import Article
@@ -22,6 +22,7 @@ def get_article(slug):
     return Article.objects.get(slug=slug)
 
 
+@login_required()
 def article_details(request, slug):
     article = get_article(slug)
     id_ = article.pk
@@ -38,6 +39,7 @@ def article_details(request, slug):
 
 
 # Management
+@login_required()
 def article_create(request):
     if request.method == "POST":
         form = ArticleForm(request.POST, request.FILES)
@@ -51,6 +53,7 @@ def article_create(request):
     return render(request, "blog/article_create.html", {"form": form})
 
 
+@login_required()
 def article_update(request, slug):
     article = get_article(slug)
     form = ArticleForm(data=request.POST or None, instance=article)
@@ -62,12 +65,14 @@ def article_update(request, slug):
     return render(request, "blog/article_create.html", context)
 
 
+@login_required()
 def article_delete(request, slug):
     article = get_article(slug)
     article.delete()
     return redirect("blog:dashboard")
 
 
+@login_required()
 def dashboard(request):
     articles = Article.objects.all()
     return render(request, "blog/dashboard.html", {"articles": articles})

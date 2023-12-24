@@ -8,9 +8,25 @@
         <link rel="stylesheet"
               href="{% static 'highlight/styles/nord.css' %}"
               {% load static %}>
+        <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: 'sans-serif';
+    }
+    .container {
+      max-width: 768px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+        </style>
     </head>
     <body>
-        {% block content %}{% endblock %}
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
         <script src="{% static 'highlight/highlight.min.js' %}"></script>
         <script>hljs.highlightAll();</script>
     </body>

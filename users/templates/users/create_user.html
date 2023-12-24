@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Create user</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="css/style.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <h1>Create user</h1>
+    <form method="post">
+      {% csrf_token %}
+
+      <div class="input-group">
+        <label for="{{form.email.id_for_label}}">Email</label>
+        {{form.email}}
+        <small>{{form.email.errors}}</small>
+      </div>
+      <div class="input-group">
+        <label for="{{form.password1.id_for_label}}">Password</label>
+        {{form.password1}}
+        <small>{{form.password1.errors}}</small>
+      </div>
+      <div class="input-group">
+        <label for="{{form.password2.id_for_label}}">Cofirm Password</label>
+        {{form.password2}}
+        <small>{{form.password2.errors}}</small>
+      </div>
+
+      <button>Login</button>
+      <p>Already a member? <a href="{% url 'login_user' %}">Login</a></p>
+    </form>
+  </body>
+</html>

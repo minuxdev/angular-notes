@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "users",
     "blog",
     "tinymce",
 ]
@@ -146,3 +147,8 @@ TINYMCE_DEFAULT_CONFIG = {
         {"text": "CSS", "value": "css"},
     ],
 }
+
+AUTH_USER_MODEL = "users.User"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+LOGIN_URL = "/users/login/"
+LOGIN_REDIRECT_URL = "blog:dashboard"
