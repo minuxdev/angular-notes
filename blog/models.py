@@ -38,7 +38,7 @@ class Article(models.Model):
         unique=True,
         always_update=True,
         default=None,
-        unique_with=["author__username"],
+        unique_with=["author"],
     )
     created_on = models.DateTimeField(null=True, blank=True)
     updated_on = models.DateTimeField(null=True, blank=True)
