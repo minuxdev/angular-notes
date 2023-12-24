@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.db.models import Q
 from django.shortcuts import redirect, render
 
@@ -23,6 +24,7 @@ def get_article(slug):
 
 
 @login_required()
+@transaction.atomic()
 def article_details(request, slug):
     article = get_article(slug)
     id_ = article.pk
