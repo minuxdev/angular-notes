@@ -16,6 +16,6 @@
         <h3>
             <a href="{{ ra.get_absolute_url }}">{{ ra.topic }}</a>
         </h3>
-        <p>{{ ra.body|truncatechars:150 }}</p>
+        <p>{{ ra.body|truncatechars:150 | safe }}</p>
     {% endfor %}
 {% endblock %}

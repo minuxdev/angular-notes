@@ -1,0 +1,47 @@
+@ "variables" as *;
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+p {
+  margin-bottom: 2.4rem;
+}
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+  display: inline-block;
+  object-fit: cover;
+}
+
+pre {
+  overflow: scroll;
+  width: 100%;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  color: map-get($colors, 'title');
+}
+h1 {
+  margin-bottom: 2.4rem; 
+}
+
+h2, h3 {
+  margin: 3.2rem auto 2.4rem; 
+}
+

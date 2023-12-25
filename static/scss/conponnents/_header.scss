@@ -1,0 +1,10 @@
+@use "../base" as *;
+
+header {
+  @include display-flex(0, center);
+
+  .hero__nav {
+    @include display-flex();
+    flex-wrap: nowrap;
+  }
+}

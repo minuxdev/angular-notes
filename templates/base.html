@@ -8,6 +8,7 @@
         <link rel="stylesheet"
               href="{% static 'highlight/styles/nord.css' %}"
               {% load static %}>
+        {{ form.media }}
         <style>
     * {
       padding: 0;
@@ -15,11 +16,36 @@
       box-sizing: border-box;
       font-family: 'sans-serif';
     }
+    span {
+      word-break: brak-all;
+    }
     .container {
       max-width: 768px;
       margin: 2rem auto;
       padding: 1rem;
     }
+    p, a {
+      line-height: 1.4;
+      font-size: 1rem;
+    }
+    p {
+      margin: 1rem 0;
+    }
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 500;
+      margin-bottom: 2.5rem;
+    }
+    h2 {
+      font-size: 2.5rem;
+    }
+    h2, h3 {
+      margin-top: 2rem;
+    }
+    h3 {
+      font-size: 2rem;
+    }
+
 
         </style>
     </head>
