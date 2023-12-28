@@ -1,26 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
-    <a href="{% url 'blog:article_create' %}">Create Article</a>
-    <form method="post">
-        {% csrf_token %}
-        <input type="search" placeholder="search..." name="query" />
-        <button>Search</button>
-    </form>
-    {% if articles %}
-        <h1>Home page</h1>
-        {% for article in articles %}
-            <div class="entry">
-                <h2>
-                    <a href="{{ article.get_absolute_url }}">{{ article.topic }}</a>
-                </h2>
-                <p>{{ article.body | truncatechars:150 | safe }}</p>
-                <p>
-                    <span>{{ article.updated_on }}</span> | <span>{{ article.category }}</span> |
-                    <span>{{ article.views }}</span>
-                </p>
-            </div>
-        {% endfor %}
+    {% if page_obj %}
+        <div class="card__wrapper">
+            {% for article in page_obj %}
+                <div class="card article">
+                    <h2>
+                        <a href="{{ article.get_absolute_url }}">{{ article.topic }}</a>
+                    </h2>
+                    <div class="metadata">
+                        <span>{{ article.updated_on.date | date:"l, M d, Y" }}</span>
+                        <span>{{ article.category }}</span>
+                        <span>{{ article.views }}</span>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="content">
+                        <p>{{ article.body | truncatechars:250 | safe }}</p>
+                    </div>
+                    <a class="btn btn-tertiary" href="#">Read More</a>
+                </div>
+            {% endfor %}
+        </div>
     {% else %}
         <h1>No record found</h1>
     {% endif %}
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            {% if page_obj.previous_page_number > 1 %}<a class="btn btn-secondary" href="?page=1">1</a>{% endif %}
+            <a class="btn btn-secondary"
+               href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+        {% endif %}
+        <a class="btn btn-primary">{{ page_obj.number }}</a>
+        {% if page_obj.has_next %}
+            <a class="btn btn-secondary"
+               href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+            {% if page_obj.paginator.num_pages > page_obj.next_page_number %}
+                <a class="btn btn-secondary"
+                   href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+            {% endif %}
+        {% endif %}
+    </div>
 {% endblock %}

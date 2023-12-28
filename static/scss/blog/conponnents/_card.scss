@@ -1,0 +1,36 @@
+@use "../base" as *;
+
+.card {
+  @include padding();
+  background: map-get($colors, "fg");
+  max-width: $desktop;
+  margin-inline: auto;
+
+  & > * {
+    margin-bottom: 2.4rem;
+  }
+
+  h2 {
+    max-width: 80%;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .metadata {
+    @include display-flex(1.6rem, center);
+    margin-inline: auto;
+    & * {
+      color: map-get($colors, "gray");
+    }
+  }
+
+  .separator {
+    height: 0.2rem;
+    background: map-get($colors, "bg");
+  }
+  a.btn {
+    margin: 3.2rem 0 0 auto;
+    display: block;
+    width: max-content;
+  }
+}

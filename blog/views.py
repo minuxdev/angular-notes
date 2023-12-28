@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.db import transaction
 from django.db.models import Q
 from django.shortcuts import redirect, render
@@ -15,8 +16,13 @@ def home(request):
         )
     else:
         articles = Article.objects.all()
+    paginator = Paginator(articles, 4)
+    page_number = request.GET.get("page", 1)
+    page_obj = paginator.get_page(page_number)
+    print(page_obj)
 
-    return render(request, "blog/home.html", context={"articles": articles})
+    context = {"articles": articles, "page_obj": page_obj}
+    return render(request, "blog/home.html", context)
 
 
 def get_article(slug):

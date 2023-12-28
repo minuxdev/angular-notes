@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&family=PT+Sans+Narrow&family=Playball&display=swap");
+:root {
+  font-size: 62.5%;
+}
+body {
+  font-family: "PT Sans", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "PT Sans Narrow", sans-s;
+}
+
+h1 {
+  font-size: 4rem;
+  line-height: 125%;
+}
+h2,
+h2 a {
+  font-size: 3.2rem;
+  line-height: 125%;
+}
+
+h3,
+h3 a {
+  font-size: 2.4rem;
+  line-height: 125%;
+}
+
+p {
+  line-height: 140%;
+}
+small {
+  font-size: 1.4rem;
+}
+
+label,
+.menu {
+  font-size: 1.8rem;
+  line-height: 140%;
+}
+li,
+p,
+a,
+b,
+code,
+span {
+  font-size: 1.6rem;
+}
+
+input,
+select {
+  font-size: 1.6rem;
+}
+
+.logo {
+  font-size: 4rem;
+  font-family: "Playball", sans-serif;
+}
+
+i {
+  font-size: 1.6rem;
+}
+
+footer a i {
+  font-size: 2.4rem;
+}

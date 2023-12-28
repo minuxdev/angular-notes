@@ -1,0 +1,23 @@
+@use "../base" as *;
+
+footer {
+  background: map-get($colors, "fg");
+  text-align: center;
+
+  .content {
+    @include display-flex(2.4rem, center);
+    flex-direction: column;
+  }
+
+  .icons__container {
+    @include display-flex();
+    max-width: 144px;
+    margin-inline: auto;
+  }
+  a {
+    color: map-get($colors, "primary");
+  }
+  p {
+    margin: 0;
+  }
+}

@@ -1,4 +1,4 @@
-@ "variables" as *;
+@use "variables" as *;
 
 html {
   scroll-behavior: smooth;
@@ -8,8 +8,12 @@ html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  outline: none;
 }
 
+body {
+  background: map-get($colors, "bg");
+}
 p {
   margin-bottom: 2.4rem;
 }
@@ -34,14 +38,20 @@ pre {
   width: 100%;
 }
 
-h1,h2,h3,h4,h5,h6 {
-  color: map-get($colors, 'title');
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header a {
+  color: map-get($colors, "title");
 }
 h1 {
-  margin-bottom: 2.4rem; 
+  margin-bottom: 2.4rem;
 }
 
-h2, h3 {
-  margin: 3.2rem auto 2.4rem; 
+h2,
+h3 {
+  margin: 3.2rem auto 2.4rem;
 }
-

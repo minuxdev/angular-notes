@@ -1,58 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        {% load static %}
+        {{ form.media }}
         <title>Home</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {% load static %}
+        <link rel="stylesheet" href="{% static 'highlight/styles/nord.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <link rel="stylesheet"
-              href="{% static 'highlight/styles/nord.css' %}"
-              {% load static %}>
-        {{ form.media }}
-        <style>
-    * {
-      padding: 0;
-      margin: 0;
-      box-sizing: border-box;
-      font-family: 'sans-serif';
-    }
-    span {
-      word-break: brak-all;
-    }
-    .container {
-      max-width: 768px;
-      margin: 2rem auto;
-      padding: 1rem;
-    }
-    p, a {
-      line-height: 1.4;
-      font-size: 1rem;
-    }
-    p {
-      margin: 1rem 0;
-    }
-    h1 {
-      font-size: 3.5rem;
-      font-weight: 500;
-      margin-bottom: 2.5rem;
-    }
-    h2 {
-      font-size: 2.5rem;
-    }
-    h2, h3 {
-      margin-top: 2rem;
-    }
-    h3 {
-      font-size: 2rem;
-    }
-
-
-        </style>
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+              integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+              crossorigin="anonymous"
+              referrerpolicy="no-referrer" />
     </head>
     <body>
+        {% comment %}Header{% endcomment %}
+        <header>
+            <nav class="hero__nav">
+                <a class="logo">Minux's Blog</a>
+                <form class="search" method="post">
+                    {% csrf_token %}
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="search" placeholder="Search here" name="query" />
+                </form>
+                <ul>
+                    <li>
+                        <a class="menu" href="{% url 'blog:home' %}">Home</a>
+                    </li>
+                    <li>
+                        <a class="menu" href="#">Categories</a>
+                    </li>
+                    <li>
+                        <a class="menu btn btn-secondary" href="{% url 'login_user' %}">Login</a>
+                    </li>
+                    <li>
+                        <a class="menu btn btn-primary" href="{% url 'blog:article_create' %}">Create Article</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        {% comment %}Main content{% endcomment %}
         <div class="container">
             {% block content %}{% endblock %}
         </div>
+        {% comment %}Footer{% endcomment %}
+        <footer>
+            <div class="content">
+                <div class="icons__container">
+                    <a href="www.github.com/minuxdev/" title="Minux dev">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                    <a href="mailto:minux.midi@gmail.com" title="Minux dev">
+                        <i class="fa-regular fa-envelope"></i>
+                    </a>
+                    <a href="www.github.com/minuxdev/" title="AUS Team">
+                        <i class="fa-solid fa-rss"></i>
+                    </a>
+                </div>
+                <p>
+                    Powered by: <a href="#">AUS Team</a>
+                </p>
+                <p>© 2022 - 2024</p>
+            </div>
+        </footer>
         <script src="{% static 'highlight/highlight.min.js' %}"></script>
         <script>hljs.highlightAll();</script>
     </body>

@@ -1,3 +1,7 @@
+@mixin padding($v: 2.4rem, $h: 2.4rem) {
+  padding: $v $h;
+}
+
 @mixin display-flex($gap: 2.4rem, $jc: space-between) {
   display: flex;
   align-items: center;

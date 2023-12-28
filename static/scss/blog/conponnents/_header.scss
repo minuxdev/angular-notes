@@ -1,0 +1,16 @@
+@use "../base" as *;
+
+header {
+  @include display-flex(0, center);
+  background: map-get($colors, "fg");
+
+  .hero__nav {
+    @include display-flex();
+    width: 100%;
+    max-width: $desktop;
+
+    ul {
+      @include display-flex();
+    }
+  }
+}

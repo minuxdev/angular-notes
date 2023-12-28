@@ -1,0 +1,25 @@
+@use "../base" as *;
+
+footer,
+header {
+  width: 100%;
+  @include padding(2.4rem);
+}
+
+.card__wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.4rem;
+  margin-bottom: 2.4rem;
+}
+
+.pagination {
+  @include display-flex(1.6rem);
+  max-width: max-content;
+  margin-inline: auto;
+  margin-top: 2.4rem;
+}
+
+.container {
+  max-width: $desktop;
+}

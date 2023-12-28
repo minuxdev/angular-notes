@@ -1,0 +1,323 @@
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans&family=PT+Sans+Narrow&family=Playball&display=swap");
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+
+body {
+  background: #f0f0f0;
+}
+
+p {
+  margin-bottom: 2.4rem;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+  display: inline-block;
+  object-fit: cover;
+}
+
+pre {
+  overflow: scroll;
+  width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header a {
+  color: #2c2c2c;
+}
+
+h1 {
+  margin-bottom: 2.4rem;
+}
+
+h2,
+h3 {
+  margin: 3.2rem auto 2.4rem;
+}
+
+:root {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "PT Sans", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "PT Sans Narrow", sans-s;
+}
+
+h1 {
+  font-size: 4rem;
+  line-height: 125%;
+}
+
+h2,
+h2 a {
+  font-size: 3.2rem;
+  line-height: 125%;
+}
+
+h3,
+h3 a {
+  font-size: 2.4rem;
+  line-height: 125%;
+}
+
+p {
+  line-height: 140%;
+}
+
+small {
+  font-size: 1.4rem;
+}
+
+label,
+.menu {
+  font-size: 1.8rem;
+  line-height: 140%;
+}
+
+li,
+p,
+a,
+b,
+code,
+span {
+  font-size: 1.6rem;
+}
+
+input,
+select {
+  font-size: 1.6rem;
+}
+
+.logo {
+  font-size: 4rem;
+  font-family: "Playball", sans-serif;
+}
+
+i {
+  font-size: 1.6rem;
+}
+
+footer a i {
+  font-size: 2.4rem;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+  background: #fefefe;
+}
+header .hero__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.4rem;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1080px;
+}
+header .hero__nav ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.4rem;
+  flex-wrap: wrap;
+}
+
+footer {
+  background: #fefefe;
+  text-align: center;
+}
+footer .content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.4rem;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+footer .icons__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.4rem;
+  flex-wrap: wrap;
+  max-width: 144px;
+  margin-inline: auto;
+}
+footer a {
+  color: #c05b4d;
+}
+footer p {
+  margin: 0;
+}
+
+.btn {
+  display: inline-block;
+  border: 0.2rem solid transparent;
+  background: none;
+  cursor: pointer;
+  white-space: nowrap;
+  trasition: all 0.3 ease;
+  padding: 0.8rem 1.6rem;
+}
+.btn:active {
+  color: 0 0 0 2px #c05b4d;
+}
+.btn.btn-primary {
+  background: #c05b4d;
+  color: #2c2c2c;
+}
+.btn.btn-primary:hover {
+  background: none;
+  color: #2c2c2c;
+  border: 0.2rem solid #c05b4d;
+}
+.btn.btn-secondary {
+  color: #2c2c2c;
+  border: 0.2rem solid #c05b4d;
+}
+.btn.btn-secondary:hover {
+  background: #c05b4d;
+}
+.btn.btn-tertiary {
+  color: #c05b4d;
+}
+
+form {
+  background: #fefefe;
+  padding: 2.4rem;
+  max-width: 768px;
+}
+form label {
+  display: block;
+  margin: 1.6rem auto 0.8rem;
+}
+form input {
+  border: 0.2rem solid #f0f0f0;
+  padding: 0.8rem 2.4rem;
+}
+form input::placeholder {
+  color: #999;
+}
+form.search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.4rem;
+  flex-wrap: wrap;
+  padding: 0.4rem;
+  border: 1px solid #888;
+}
+form.search input {
+  border: none;
+}
+
+.card {
+  padding: 2.4rem 2.4rem;
+  background: #fefefe;
+  max-width: 1080px;
+  margin-inline: auto;
+}
+.card > * {
+  margin-bottom: 2.4rem;
+}
+.card h2 {
+  max-width: 80%;
+  margin-inline: auto;
+  text-align: center;
+}
+.card .metadata {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+  flex-wrap: wrap;
+  margin-inline: auto;
+}
+.card .metadata * {
+  color: #888;
+}
+.card .separator {
+  height: 0.2rem;
+  background: #f0f0f0;
+}
+.card a.btn {
+  margin: 3.2rem 0 0 auto;
+  display: block;
+  width: max-content;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.4rem;
+  flex-wrap: wrap;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+footer,
+header {
+  width: 100%;
+  padding: 2.4rem 2.4rem;
+}
+
+.card__wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.4rem;
+  margin-bottom: 2.4rem;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  flex-wrap: wrap;
+  max-width: max-content;
+  margin-inline: auto;
+  margin-top: 2.4rem;
+}
+
+.container {
+  max-width: 1080px;
+}
+
+/*# sourceMappingURL=style.css.map */
