@@ -9,3 +9,9 @@
   gap: $gap;
   flex-wrap: wrap;
 }
+
+@mixin display-grid($gap: 2.4rem) {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $gap;
+}

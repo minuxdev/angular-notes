@@ -6,7 +6,8 @@
         <title>Home</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="{% static 'highlight/styles/nord.css' %}">
+        <link rel="stylesheet"
+              href="{% static 'highlight/styles/atom-one-dark.css' %}">
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -40,11 +41,10 @@
                 </ul>
             </nav>
         </header>
-        {% comment %}Main content{% endcomment %}
         <div class="container">
-            {% block content %}{% endblock %}
+            {% block content %}
+            {% endblock content %}
         </div>
-        {% comment %}Footer{% endcomment %}
         <footer>
             <div class="content">
                 <div class="icons__container">

@@ -2,7 +2,7 @@
 
 form {
   background: map-get($colors, "fg");
-  padding: 2.4rem;
+  @include padding;
   max-width: $tablet;
 
   label {
@@ -20,11 +20,12 @@ form {
   }
 
   &.search {
-    @include display-flex;
-    padding: 0.4rem;
+    @include display-flex(0.8rem, center);
+    @include padding(0.4rem, 0.8rem);
     border: 1px solid map-get($colors, "gray");
 
     input {
+      @include padding(0.8rem, 1.6rem);
       border: none;
     }
   }
