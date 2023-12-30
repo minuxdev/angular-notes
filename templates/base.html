@@ -19,7 +19,11 @@
         {% comment %}Header{% endcomment %}
         <header>
             <nav class="hero__nav">
-                <a class="logo">Minux's Blog</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'blog:home' %}" class="logo">{{ user }}</a>
+                {% else %}
+                    <a href="{% url 'blog:home' %}" class="logo">yNotes</a>
+                {% endif %}
                 <form class="search" method="post">
                     {% csrf_token %}
                     <i class="fa-solid fa-magnifying-glass"></i>
@@ -32,12 +36,21 @@
                     <li>
                         <a class="menu" href="#">Categories</a>
                     </li>
-                    <li>
-                        <a class="menu btn btn-secondary" href="{% url 'login_user' %}">Login</a>
-                    </li>
-                    <li>
-                        <a class="menu btn btn-primary" href="{% url 'blog:article_create' %}">Create Article</a>
-                    </li>
+                    {% if user.is_authenticated %}
+                        <li>
+                            <a class="menu " href="{% url 'login_user' %}">Dashboard</a>
+                        </li>
+                        <li>
+                            <a class="menu " href="{% url 'login_user' %}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a class="menu btn btn-secondary" href="{% url 'login_user' %}">Login</a>
+                        </li>
+                        <li>
+                            <a class="menu btn btn-primary" href="{% url 'blog:article_create' %}">Create Article</a>
+                        </li>
+                    {% endif %}
                 </ul>
             </nav>
         </header>
@@ -48,13 +61,13 @@
         <footer>
             <div class="content">
                 <div class="icons__container">
-                    <a href="www.github.com/minuxdev/" title="Minux dev">
+                    <a href="http://www.github.com/minuxdev/" title="Minux dev">
                         <i class="fa-brands fa-github"></i>
                     </a>
                     <a href="mailto:minux.midi@gmail.com" title="Minux dev">
                         <i class="fa-regular fa-envelope"></i>
                     </a>
-                    <a href="www.github.com/minuxdev/" title="AUS Team">
+                    <a href="http://www.github.com/minuxdev/" title="AUS Team">
                         <i class="fa-solid fa-rss"></i>
                     </a>
                 </div>

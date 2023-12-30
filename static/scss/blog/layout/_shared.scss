@@ -22,7 +22,25 @@ header {
 
   .details {
     @include display-grid;
-    grid-template-columns: minmax(100px, 768px) minmax(240px, 320px);
+    grid-template-columns:
+      minmax(240px, 300px)
+      minmax(500px, 1fr)
+      minmax(240px, 300px);
     align-items: start;
+    max-widith: $tablet;
   }
+}
+
+.metadata {
+  @include display-flex(1.6rem, center);
+  margin: auto auto 2.4rem;
+  & * {
+    color: map-get($colors, "gray");
+  }
+}
+
+.separator {
+  height: 0.2rem;
+  background: map-get($colors, "bg");
+  margin-bottom: 2.4rem;
 }

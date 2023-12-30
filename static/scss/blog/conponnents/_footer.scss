@@ -1,6 +1,7 @@
 @use "../base" as *;
 
 footer {
+  margin-top: auto;
   background: map-get($colors, "fg");
   text-align: center;
 

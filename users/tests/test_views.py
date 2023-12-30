@@ -142,7 +142,7 @@ class LoginViewTest(TestCase):
 
         form_data = {"email": "minux@dev.com", "password": "validpassword"}
         response = self.client.post(self.url, data=form_data, follow=True)
-        self.assertRedirects(response, expected_url=reverse("home"))
+        self.assertRedirects(response, expected_url=reverse("blog:home"))
 
 
 class PasswordResetTest(TestCase):

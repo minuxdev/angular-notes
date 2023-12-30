@@ -15,3 +15,9 @@
   grid-template-columns: repeat(2, 1fr);
   gap: $gap;
 }
+
+@mixin centered-title($width: 80%) {
+  max-width: $width;
+  text-align: center;
+  margin-inline: auto;
+}

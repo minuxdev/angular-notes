@@ -127,7 +127,6 @@ class UserLoginFormTest(TestCase):
             form = UserLoginForm(
                 {"email": "e@admin.com", "password": "testpassword"}
             )
-            print(form)
 
     def test_short_email(self):
         """Test email is less than ten characters"""
@@ -136,7 +135,6 @@ class UserLoginFormTest(TestCase):
             form = UserLoginForm(
                 {"email": "e@dev.com", "password": "testpassword"}
             )
-            print(form.errors)
 
     def test_invalid_password(self):
         """Test passowrd validator"""

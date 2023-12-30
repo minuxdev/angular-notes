@@ -12,6 +12,7 @@ from blog.views import (
     article_create,
     article_details,
     article_update,
+    categories,
     dashboard,
     home,
 )
@@ -265,3 +266,30 @@ class DashboardTest(TestCase):
 
     def test_redirect_to_update_view(self):
         """Test if delete link redirect to article update view"""
+
+
+class CategoryTest(TestCase):
+    """Test for category views"""
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.category = Category.objects.create(name="Category")
+        cls.url = reverse("blog:category_list")
+
+    def setUp(self):
+        self.response = self.client.get(self.url)
+
+    def test_url_resolve(self):
+        """Test url resolve to category view"""
+        view = resolve(self.url)
+        self.assertEqual(view.func, categories)
+
+    def test_used_template(self):
+        """Test used template for listing categories"""
+        self.assertTemplateUsed(
+            self.response, template_name="blog/categories.html"
+        )
+
+    def test_list_categories(self):
+        """Test categories are listed correctly"""
+        self.assertContains(self.response, "Category")

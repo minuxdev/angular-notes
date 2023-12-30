@@ -15,7 +15,7 @@ body {
   background: map-get($colors, "bg");
 }
 p {
-  margin-bottom: 2.4rem;
+  margin-bottom: 1.6rem;
 }
 li {
   list-style: none;
@@ -34,8 +34,9 @@ img {
 }
 
 pre {
-  overflow: scroll;
+  overflow: auto;
   width: 100%;
+  margin-bottom: 2.4rem;
 }
 
 h1,
@@ -53,5 +54,5 @@ h1 {
 
 h2,
 h3 {
-  margin: 3.2rem auto 2.4rem;
+  margin: 2.4rem auto 1.6rem;
 }

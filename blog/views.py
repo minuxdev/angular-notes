@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.shortcuts import redirect, render
 
 from blog.forms import ArticleForm
-from blog.models import Article
+from blog.models import Article, Category
 
 
 def home(request):
@@ -43,6 +43,16 @@ def article_details(request, slug):
     related_articles = Article.objects.all().exclude(slug=slug)[:6]
     context = {"article": article, "related_articles": related_articles}
     return render(request, "blog/article_details.html", context=context)
+
+
+def get_category(pk):
+    return Category.objects.get(pk=pk)
+
+
+def categories(request):
+    categories = Category.objects.all()
+    context = {"categories": categories}
+    return render(request, "blog/categories.html", context)
 
 
 # Management
