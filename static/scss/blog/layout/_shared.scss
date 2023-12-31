@@ -29,12 +29,6 @@ header {
     align-items: start;
     max-widith: $tablet;
   }
-
-  .dashboard {
-    @include display-grid;
-    grid-template-columns: minmax(100px, 300px) 1fr;
-    align-items: start;
-  }
 }
 
 .metadata {

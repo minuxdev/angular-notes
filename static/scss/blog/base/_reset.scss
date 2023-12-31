@@ -56,3 +56,26 @@ h2,
 h3 {
   margin: 2.4rem auto 1.6rem;
 }
+table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+  text-align: left;
+  overflow: auto;
+
+  caption {
+    margin-bottom: 2.4rem;
+  }
+
+  &,
+  tr,
+  th,
+  td {
+    border: 0.1rem solid map-get($colors, "gray");
+  }
+
+  td,
+  th {
+    padding: 0.4rem 0.8rem;
+  }
+}

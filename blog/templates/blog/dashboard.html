@@ -1,37 +1,42 @@
 {% extends "dashboard_base.html" %}
 {% block content %}
     <div class="header"></div>
-    <div class="content">
-        {% comment %}Main content{% endcomment %}
-        {% if query == 'categories' %}
+    {% comment %}Main content{% endcomment %}
+    {% if query == 'categories' %}
+        <div class="content">
             <a href="{% url 'blog:category_list' %}">
                 <i class="fa-solid fa-plus"></i>
                 Add Category
             </a>
             <table>
-                <tr>
-                    <th>Id</th>
-                    <th>Categories</th>
-                    <th>Total Posts</th>
-                    <th>Actions</th>
-                </tr>
-                {% for category in page_obj %}
+                <caption>Categories</caption>
+                <thead>
                     <tr>
-                        <td>{{ category.pk }}</td>
-                        <td>{{ category.name }}</td>
-                        <td>{{ category.views }}</td>
-                        <td>
-                            <a href="{% url 'blog:category_details' pk=category.pk %}">
-                                <i class="fa-solid fa-circle-info"></i>
-                            </a>
-                            <a href="{% url 'blog:category_update' pk=category.pk %}">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                            <a href="{% url 'blog:category_delete' pk=category.pk %}">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </td>
+                        <th>Id</th>
+                        <th>Categories</th>
+                        <th>Total Posts</th>
+                        <th>Actions</th>
                     </tr>
+                </thead>
+                <tbody>
+                    {% for category in page_obj %}
+                        <tr>
+                            <td>{{ category.pk }}</td>
+                            <td>{{ category.name }}</td>
+                            <td>{{ category.views }}</td>
+                            <td>
+                                <a href="{% url 'blog:category_details' pk=category.pk %}">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                </a>
+                                <a href="{% url 'blog:category_update' pk=category.pk %}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                                <a href="{% url 'blog:category_delete' pk=category.pk %}">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
                 {% endfor %}
             </table>
             <div class="pagination">
@@ -50,38 +55,45 @@
                     {% endif %}
                 {% endif %}
             </div>
-        {% else %}
+        </div>
+    {% else %}
+        <div class="content">
             <a href="{% url 'blog:article_create' %}">
                 <i class="fa-solid fa-plus"></i>
                 Create Article
             </a>
             <table>
-                <tr>
-                    <th>Id</th>
-                    <th>Articles</th>
-                    <th>Views</th>
-                    <th>Updated On</th>
-                    <th>Actions</th>
-                </tr>
-                {% for article in page_obj %}
+                <caption>Articles</caption>
+                <thead>
                     <tr>
-                        <td>{{ article.pk }}</td>
-                        <td>{{ article.topic }}</td>
-                        <td>{{ article.views }}</td>
-                        <td>{{ article.updated_on }}</td>
-                        <td>
-                            <a href="{{ article.get_absolute_url }}">
-                                <i class="fa-solid fa-circle-info"></i>
-                            </a>
-                            <a href="{% url 'blog:article_update' slug=article.slug %}">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                            <a href="{% url 'blog:article_delete' slug=article.slug %}">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </td>
+                        <th>Id</th>
+                        <th>Topics</th>
+                        <th>Updated On</th>
+                        <th>Views</th>
+                        <th>Actions</th>
                     </tr>
-                {% endfor %}
+                </thead>
+                <tbody>
+                    {% for article in page_obj %}
+                        <tr>
+                            <td>{{ article.pk }}</td>
+                            <td>{{ article.topic }}</td>
+                            <td>{{ article.updated_on }}</td>
+                            <td>{{ article.views }}</td>
+                            <td>
+                                <a href="{{ article.get_absolute_url }}">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                </a>
+                                <a href="{% url 'blog:article_update' slug=article.slug %}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                                <a href="{% url 'blog:article_delete' slug=article.slug %}">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
             </table>
             <div class="pagination">
                 {% if page_obj.has_previous %}
@@ -99,6 +111,14 @@
                     {% endif %}
                 {% endif %}
             </div>
-        {% endif %}
-    </div>
+        </div>
+        <div class="recent__activities">
+            <h3>Latest Articles</h3>
+            {% for ro in recent_obj %}
+                <h4>
+                    <a href="{{ ro.get_absolute_url }}">{{ ro.topic }}</a>
+                </h4>
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock content %}

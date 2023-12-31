@@ -125,6 +125,7 @@ def dashboard(request):
     else:
         obj = Article.objects.all()
 
+    recent_obj = obj[:6]
     page_obj = construct_pagination(request, obj, 4)
-    context = {"page_obj": page_obj, "query": query}
+    context = {"page_obj": page_obj, "query": query, "recent_obj": recent_obj}
     return render(request, "blog/dashboard.html", context)

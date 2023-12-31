@@ -59,6 +59,27 @@ h3 {
   margin: 2.4rem auto 1.6rem;
 }
 
+table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+  text-align: left;
+  overflow: auto;
+}
+table caption {
+  margin-bottom: 2.4rem;
+}
+table,
+table tr,
+table th,
+table td {
+  border: 0.1rem solid #888;
+}
+table td,
+table th {
+  padding: 0.4rem 0.8rem;
+}
+
 :root {
   font-size: 62.5%;
 }
@@ -132,6 +153,16 @@ i {
 
 footer a i {
   font-size: 2.4rem;
+}
+
+table {
+  font-size: 1.6rem;
+}
+table caption {
+  font-size: 3.2rem;
+}
+table td i {
+  font-size: 2rem;
 }
 
 header {
@@ -313,13 +344,6 @@ header {
   align-items: start;
   max-widith: 768px;
 }
-.container .dashboard {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2.4rem;
-  grid-template-columns: minmax(100px, 300px) 1fr;
-  align-items: start;
-}
 
 .metadata {
   display: flex;
@@ -378,6 +402,71 @@ header {
 .details .aside .related__posts {
   padding: 2rem 2rem;
   background: #fefefe;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.4rem;
+  grid-template-columns: minmax(100px, 300px) 1fr;
+  align-items: start;
+  min-height: 100vh;
+  width: 100%;
+  padding: 2.4rem 2.4rem;
+}
+.dashboard .side__nav {
+  background: #fefefe;
+  padding: 2.4rem 2.4rem;
+  position: relative;
+  height: 100%;
+}
+.dashboard .side__nav .dashboard__logout {
+  position: absolute;
+  top: 85vh;
+}
+.dashboard .content__wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.4rem;
+  grid-template-columns: 1fr minmax(28rem, 32rem);
+  grid-template-rows: max-content 1fr;
+  gap: 2.4rem;
+  align-items: start;
+}
+.dashboard .content__wrapper > * {
+  background: #fefefe;
+  padding: 2.4rem 2.4rem;
+}
+.dashboard .content__wrapper .header {
+  grid-column: 1/3;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.4rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+.dashboard .content__wrapper .content table th:first-child,
+.dashboard .content__wrapper .content table th:nth-child(4) {
+  width: 10%;
+}
+.dashboard .content__wrapper .content table th:last-child {
+  width: 15%;
+}
+.dashboard .content__wrapper .content table td:last-child {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.4rem;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  flex-wrap: nowrap;
+  border: none;
+}
+.dashboard .content__wrapper .recent_activities {
+  padding: 2rem 2rem;
+  background: #fefefe;
+}
+.dashboard .content__wrapper .recent_activities h3 {
+  margin-top: 0rem;
 }
 
 /*# sourceMappingURL=style.css.map */
