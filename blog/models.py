@@ -22,7 +22,9 @@ class Category(models.Model):
 
 class Article(models.Model):
     author = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=True)
-    category = models.ForeignKey(to=Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(
+        to=Category, on_delete=models.CASCADE, related_name="article"
+    )
     topic = models.CharField(max_length=255, unique=True)
     body = tm.HTMLField()
     posted = models.BooleanField(default=False)

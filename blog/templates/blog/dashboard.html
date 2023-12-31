@@ -1,27 +1,35 @@
-{% extends 'base.html' %}
+{% extends "dashboard_base.html" %}
 {% block content %}
-    <h1>Dashboard</h1>
-    <a href="{% url 'blog:article_create' %}">Create Article</a>
-    <table>
-        <tr>
-            <th>id</th>
-            <th>category</th>
-            <th>article</th>
-            <th>views</th>
-            <th>actions</th>
-        </tr>
-        {% for article in articles %}
+    <div class="header"></div>
+    <div class="content">
+        <a href="{% url 'blog:article_create' %}"><i class="fa-solid fa-plus"></i>Create Article</a>
+        <table>
             <tr>
-                <td>{{ article.pk }}</td>
-                <td>{{ article.category }}</td>
-                <td>{{ article.topic }}</td>
-                <td>{{ article.views }}</td>
-                <td>
-                    <a href="{{ article.get_absolute_url }}">i</a>
-                    <a href="{% url 'blog:article_update' slug=article.slug %}">e</a>
-                    <a href="{% url 'blog:article_delete' slug=article.slug %}">-</a>
-                </td>
+                <th>Id</th>
+                <th>Article</th>
+                <th>Views</th>
+                <th>Updated In</th>
+                <th>actions</th>
             </tr>
-        {% endfor %}
-    </table>
-{% endblock %}
+            {% for article in articles %}
+                <tr>
+                    <td>{{ article.pk }}</td>
+                    <td>{{ article.category }}</td>
+                    <td>{{ article.topic }}</td>
+                    <td>{{ article.views }}</td>
+                    <td>
+                        <a href="{{ article.get_absolute_url }}">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </a>
+                        <a href="{% url 'blog:article_update' slug=article.slug %}">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <a href="{% url 'blog:article_delete' slug=article.slug %}">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock content %}

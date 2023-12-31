@@ -51,7 +51,10 @@ def get_category(pk):
 
 def categories(request):
     categories = Category.objects.all()
-    context = {"categories": categories}
+    paginator = Paginator(categories, 4)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    context = {"page_obj": page_obj}
     return render(request, "blog/categories.html", context)
 
 

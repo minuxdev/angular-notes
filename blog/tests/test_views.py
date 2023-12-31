@@ -61,7 +61,6 @@ class HomeViewTest(TestCase):
 
     def test_home_has_article_links(self):
         """Test if home has links for articles"""
-        print(self.response.content.decode("utf-8"))
 
         self.assertContains(
             self.response,
@@ -238,7 +237,14 @@ class ArticleUpdateView(TestCase):
 
 
 class DashboardTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = get_user_model().objects.create_user(
+            email="minux@email.com", password="test"
+        )
+
     def setUp(self):
+        self.client.force_login(self.user)
         self.url = reverse("blog:dashboard")
         self.response = self.client.get(self.url)
 

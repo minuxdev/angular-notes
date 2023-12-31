@@ -34,14 +34,14 @@
                         <a class="menu" href="{% url 'blog:home' %}">Home</a>
                     </li>
                     <li>
-                        <a class="menu" href="#">Categories</a>
+                        <a class="menu" href="{% url 'blog:category_list' %}">Categories</a>
                     </li>
                     {% if user.is_authenticated %}
                         <li>
-                            <a class="menu " href="{% url 'login_user' %}">Dashboard</a>
+                            <a class="menu " href="{% url 'blog:dashboard' %}">Dashboard</a>
                         </li>
                         <li>
-                            <a class="menu " href="{% url 'login_user' %}">Logout</a>
+                            <a class="menu " href="{% url 'logout_user' %}">Logout</a>
                         </li>
                     {% else %}
                         <li>
