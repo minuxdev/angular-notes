@@ -66,16 +66,12 @@ table {
   border-collapse: collapse;
   width: 100%;
   text-align: left;
-  overflow: auto;
 
   caption {
     margin-bottom: 2.4rem;
   }
 
-  &,
-  tr,
-  th,
-  td {
+  tr {
     border: 0.1rem solid map-get($colors, "gray");
   }
 

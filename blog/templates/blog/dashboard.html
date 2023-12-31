@@ -17,12 +17,16 @@
     {% comment %}Main content{% endcomment %}
     {% if query == 'categories' %}
         <div class="content">
-            <a href="{% url 'blog:category_list' %}">
+      <section class="top__table">
+        <h2>Categories</h2>
+            <a class="btn btn-secondary" href="{% url 'blog:category_list' %}">
                 <i class="fa-solid fa-plus"></i>
                 Add Category
             </a>
+      </section>
+      <div class="separator"></div>
+      <div class="table">
             <table>
-                <caption>Categories</caption>
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -35,11 +39,12 @@
                 <tbody>
                     {% for category in page_obj %}
                         <tr>
-                            <td>{{ category.pk }}</td>
-                            <td>{{ user.email }}</td>
-                            <td>{{ category.name }}</td>
-                            <td>{{ category.views }}</td>
-                            <td>
+                            <td data-label="Id">{{ category.pk }}</td>
+                            <td data-label="Author">{{ user.email }}</td>
+                            <td data-label="Categories">{{ category.name }}</td>
+                            <td data-label="Total Posts">{{ category.views }}</td>
+                            <td data-label="Actions">
+                                <div>
                                 <a href="{% url 'blog:category_details' pk=category.pk %}">
                                     <i class="fa-solid fa-circle-info"></i>
                                 </a>
@@ -49,11 +54,13 @@
                                 <a href="{% url 'blog:category_delete' pk=category.pk %}">
                                     <i class="fa-solid fa-trash"></i>
                                 </a>
+                </div>
                             </td>
                         </tr>
                     </tbody>
                 {% endfor %}
             </table>
+      </div>
       {% comment %}Pagination{% endcomment %}
       {% if page_obj.paginator.num_pages > 1 %}
             <div class="pagination">
@@ -84,12 +91,15 @@
         </div>
     {% else %}
         <div class="content">
-            <a href="{% url 'blog:article_create' %}">
+          <section class="top__table">
+            <h2>Articles</h2>
+            <a class="btn btn-secondary" href="{% url 'blog:article_create' %}">
                 <i class="fa-solid fa-plus"></i>
                 Create Article
             </a>
+          </section>
+      <div class="table">
             <table>
-                <caption>Articles</caption>
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -102,11 +112,12 @@
                 <tbody>
                     {% for article in page_obj %}
                         <tr>
-                            <td>{{ article.pk }}</td>
-                            <td>{{ article.topic }}</td>
-                            <td>{{ article.updated_on }}</td>
-                            <td>{{ article.views }}</td>
-                            <td>
+                            <td data-label="Id">{{ article.pk }}</td>
+                            <td data-label="Topics">{{ article.topic }}</td>
+                            <td data-label="Posted On">{{ article.updated_on }}</td>
+                            <td data-label="Views">{{ article.views }}</td>
+                            <td data-label="Actions">
+      <div>
                                 <a href="{{ article.get_absolute_url }}">
                                     <i class="fa-solid fa-circle-info"></i>
                                 </a>
@@ -116,11 +127,13 @@
                                 <a href="{% url 'blog:article_delete' slug=article.slug %}">
                                     <i class="fa-solid fa-trash"></i>
                                 </a>
+      </div>
                             </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
+      </div>
       {% comment %}Pagination{% endcomment %}
       {% if page_obj.paginator.num_pages > 1 %}
             <div class="pagination">
