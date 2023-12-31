@@ -1,6 +1,19 @@
 {% extends "dashboard_base.html" %}
 {% block content %}
-    <div class="header"></div>
+    <div class="header">
+        <div class="card">
+            <i class="fa-solid fa-plus"></i>
+        </div>
+        <div class="card">
+            <i class="fa-solid fa-plus"></i>
+        </div>
+        <div class="card">
+            <i class="fa-solid fa-plus"></i>
+        </div>
+        <div class="card">
+            <i class="fa-solid fa-plus"></i>
+        </div>
+    </div>
     {% comment %}Main content{% endcomment %}
     {% if query == 'categories' %}
         <div class="content">
@@ -13,6 +26,7 @@
                 <thead>
                     <tr>
                         <th>Id</th>
+                        <th>Author</th>
                         <th>Categories</th>
                         <th>Total Posts</th>
                         <th>Actions</th>
@@ -22,6 +36,7 @@
                     {% for category in page_obj %}
                         <tr>
                             <td>{{ category.pk }}</td>
+                            <td>{{ user.email }}</td>
                             <td>{{ category.name }}</td>
                             <td>{{ category.views }}</td>
                             <td>
@@ -39,6 +54,8 @@
                     </tbody>
                 {% endfor %}
             </table>
+      {% comment %}Pagination{% endcomment %}
+      {% if page_obj.paginator.num_pages > 1 %}
             <div class="pagination">
                 {% if page_obj.has_previous %}
                     {% if page_obj.previous_page_number > 1 %}<a class="btn btn-secondary" href="?q=categories&page=1">1</a>{% endif %}
@@ -55,6 +72,15 @@
                     {% endif %}
                 {% endif %}
             </div>
+      {% endif %}
+        </div>
+        <div class="recent__activities">
+            <h3>Latest Categories</h3>
+            {% for ro in recent_obj %}
+                <h4>
+                    <a href="{{ ro.get_absolute_url }}">{{ ro.name }}</a>
+                </h4>
+            {% endfor %}
         </div>
     {% else %}
         <div class="content">
@@ -95,6 +121,8 @@
                     {% endfor %}
                 </tbody>
             </table>
+      {% comment %}Pagination{% endcomment %}
+      {% if page_obj.paginator.num_pages > 1 %}
             <div class="pagination">
                 {% if page_obj.has_previous %}
                     {% if page_obj.previous_page_number > 1 %}<a class="btn btn-secondary" href="?q=articles&page=1">1</a>{% endif %}
@@ -111,6 +139,7 @@
                     {% endif %}
                 {% endif %}
             </div>
+      {% endif %}
         </div>
         <div class="recent__activities">
             <h3>Latest Articles</h3>

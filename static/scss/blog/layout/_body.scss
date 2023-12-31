@@ -4,4 +4,5 @@ body {
   @include display-flex($jc: flex-start);
   flex-direction: column;
   min-height: 100vh;
+  gap: 0;
 }

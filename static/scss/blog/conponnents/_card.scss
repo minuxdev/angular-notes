@@ -4,6 +4,7 @@
   @include padding();
   background: map-get($colors, "fg");
   max-width: $desktop;
+  width: 100%;
   margin-inline: auto;
 
   & > * {
@@ -20,5 +21,33 @@
     margin: 3.2rem 0 0 auto;
     display: block;
     width: max-content;
+  }
+
+  &.category {
+    max-width: $tablet;
+
+    h1,
+    h4 {
+      margin: 0;
+      text-align: left;
+    }
+    h1 {
+      margin-bottom: 2.4rem;
+    }
+
+    ul.content {
+      li {
+        @include display-flex($gap: 3.2rem, $jc: flex-start);
+        margin-bottom: 1.6rem;
+
+        span {
+          color: map-get($colors, "gray");
+        }
+        h4 a {
+          color: map-get($colors, "primary");
+          text-decoration: underline;
+        }
+      }
+    }
   }
 }
