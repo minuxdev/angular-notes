@@ -21,11 +21,11 @@
         <ul class="side__menu">
           <li>
             <i class="fa-solid fa-list"></i>
-            <a class="menu" href="{% url 'blog:category_list' %}">Categories</a>
+            <a class="menu" href="{% url 'blog:dashboard' %}?q=categories">Categories</a>
           </li>
           <li>
             <i class="fa-solid fa-gauge"></i>
-            <a class="menu" href="{% url 'blog:dashboard' %}">Dashboard</a>
+            <a class="menu" href="{% url 'blog:dashboard' %}?q=articles">Dashboard</a>
           </li>
           <li>
             <i class="fa-solid fa-arrow-right-from-bracket"></i>

@@ -14,10 +14,13 @@ class Category(models.Model):
     total_post = models.IntegerField(verbose_name="total posts", default=0)
 
     class Meta:
-        ordering = ("-id", "name")
+        ordering = ("-total_post",)
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("blog:category_details", kwargs={"pk": self.pk})
 
 
 class Article(models.Model):

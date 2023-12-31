@@ -2,34 +2,103 @@
 {% block content %}
     <div class="header"></div>
     <div class="content">
-        <a href="{% url 'blog:article_create' %}"><i class="fa-solid fa-plus"></i>Create Article</a>
-        <table>
-            <tr>
-                <th>Id</th>
-                <th>Article</th>
-                <th>Views</th>
-                <th>Updated In</th>
-                <th>actions</th>
-            </tr>
-            {% for article in articles %}
+        {% comment %}Main content{% endcomment %}
+        {% if query == 'categories' %}
+            <a href="{% url 'blog:category_list' %}">
+                <i class="fa-solid fa-plus"></i>
+                Add Category
+            </a>
+            <table>
                 <tr>
-                    <td>{{ article.pk }}</td>
-                    <td>{{ article.category }}</td>
-                    <td>{{ article.topic }}</td>
-                    <td>{{ article.views }}</td>
-                    <td>
-                        <a href="{{ article.get_absolute_url }}">
-                            <i class="fa-solid fa-circle-info"></i>
-                        </a>
-                        <a href="{% url 'blog:article_update' slug=article.slug %}">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
-                        <a href="{% url 'blog:article_delete' slug=article.slug %}">
-                            <i class="fa-solid fa-trash"></i>
-                        </a>
-                    </td>
+                    <th>Id</th>
+                    <th>Categories</th>
+                    <th>Total Posts</th>
+                    <th>Actions</th>
                 </tr>
-            {% endfor %}
-        </table>
+                {% for category in page_obj %}
+                    <tr>
+                        <td>{{ category.pk }}</td>
+                        <td>{{ category.name }}</td>
+                        <td>{{ category.views }}</td>
+                        <td>
+                            <a href="{% url 'blog:category_details' pk=category.pk %}">
+                                <i class="fa-solid fa-circle-info"></i>
+                            </a>
+                            <a href="{% url 'blog:category_update' pk=category.pk %}">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                            <a href="{% url 'blog:category_delete' pk=category.pk %}">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <div class="pagination">
+                {% if page_obj.has_previous %}
+                    {% if page_obj.previous_page_number > 1 %}<a class="btn btn-secondary" href="?q=categories&page=1">1</a>{% endif %}
+                    <a class="btn btn-secondary"
+                       href="?q=categories&page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                {% endif %}
+                <a class="btn btn-primary">{{ page_obj.number }}</a>
+                {% if page_obj.has_next %}
+                    <a class="btn btn-secondary"
+                       href="?q=categories&page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+                    {% if page_obj.paginator.num_pages > page_obj.next_page_number %}
+                        <a class="btn btn-secondary"
+                           href="?q=categories&page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% else %}
+            <a href="{% url 'blog:article_create' %}">
+                <i class="fa-solid fa-plus"></i>
+                Create Article
+            </a>
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Articles</th>
+                    <th>Views</th>
+                    <th>Updated On</th>
+                    <th>Actions</th>
+                </tr>
+                {% for article in page_obj %}
+                    <tr>
+                        <td>{{ article.pk }}</td>
+                        <td>{{ article.topic }}</td>
+                        <td>{{ article.views }}</td>
+                        <td>{{ article.updated_on }}</td>
+                        <td>
+                            <a href="{{ article.get_absolute_url }}">
+                                <i class="fa-solid fa-circle-info"></i>
+                            </a>
+                            <a href="{% url 'blog:article_update' slug=article.slug %}">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                            <a href="{% url 'blog:article_delete' slug=article.slug %}">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <div class="pagination">
+                {% if page_obj.has_previous %}
+                    {% if page_obj.previous_page_number > 1 %}<a class="btn btn-secondary" href="?q=articles&page=1">1</a>{% endif %}
+                    <a class="btn btn-secondary"
+                       href="?q=articles&page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                {% endif %}
+                <a class="btn btn-primary">{{ page_obj.number }}</a>
+                {% if page_obj.has_next %}
+                    <a class="btn btn-secondary"
+                       href="?q=articles&page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+                    {% if page_obj.paginator.num_pages > page_obj.next_page_number %}
+                        <a class="btn btn-secondary"
+                           href="?q=categories&page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% endif %}
     </div>
 {% endblock content %}
