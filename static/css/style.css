@@ -59,6 +59,10 @@ h3 {
   margin: 2.4rem auto 1.6rem;
 }
 
+span {
+  word-wrap: wrap;
+}
+
 table {
   table-layout: fixed;
   border-collapse: collapse;
@@ -201,7 +205,7 @@ header .hero__nav ul {
   flex-wrap: wrap;
   flex-direction: row;
 }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1200px) {
   header .hero__nav .togglers {
     display: flex;
     align-items: center;
@@ -232,8 +236,8 @@ header .hero__nav ul {
   }
   header .hero__nav .togglers #toggle > * {
     background: #2c2c2c;
-    height: 0.25rem;
-    width: 3.2rem;
+    height: 0.2rem;
+    width: 2.4rem;
   }
   header .hero__nav #form_search {
     display: none;
@@ -455,17 +459,9 @@ header {
   grid-template-columns: repeat(auto-fit, minmax(32rem, 1fr));
   gap: 2.4rem;
 }
-.container .details {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(32rem, 1fr));
-  gap: 2.4rem;
-  grid-template-columns: minmax(240px, 300px) minmax(500px, 1fr) minmax(240px, 300px);
-  align-items: start;
-  max-widith: 768px;
-}
 @media screen and (max-width: 768px) {
   .container {
-    padding: 1.6rem 2.4rem;
+    padding: 1.6rem 1.6rem;
   }
 }
 
@@ -489,6 +485,12 @@ header {
 }
 
 .details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(32rem, 1fr));
+  gap: 2.4rem;
+  grid-template-columns: minmax(240px, 300px) minmax(400px, 1fr) minmax(240px, 300px);
+  align-items: start;
+  max-widith: 768px;
   margin-inline: auto;
 }
 .details .breadcrumb {
@@ -527,6 +529,29 @@ header {
 .details .aside .related__posts {
   padding: 2rem 2rem;
   background: #fefefe;
+}
+@media screen and (max-width: 1200px) {
+  .details {
+    grid-template-columns: minmax(500px, 1fr) minmax(240px, 280px);
+    gap: 2rem;
+  }
+  .details .breadcrumb {
+    grid-column: 1/3;
+  }
+  .details .content {
+    padding: 2rem 2rem;
+    grid-column: 1;
+  }
+}
+@media screen and (max-width: 768px) {
+  .details {
+    display: block;
+  }
+  .details .breadcrumb,
+  .details .content,
+  .details .aside .author__bio {
+    margin-bottom: 1.6rem;
+  }
 }
 
 .dashboard {

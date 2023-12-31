@@ -1,6 +1,13 @@
 @use "../base" as *;
 
 .details {
+  @include display-grid;
+  grid-template-columns:
+    minmax(240px, 300px)
+    minmax(400px, 1fr)
+    minmax(240px, 300px);
+  align-items: start;
+  max-widith: $tablet;
   margin-inline: auto;
 
   .breadcrumb {
@@ -43,6 +50,38 @@
     .related__posts {
       @include padding(2rem, 2rem);
       background: map-get($colors, "fg");
+    }
+  }
+
+  @media screen and (max-width: $laptop) {
+    & {
+      $gutter: 2rem;
+      grid-template-columns:
+        minmax(500px, 1fr)
+        minmax(240px, 280px);
+      gap: $gutter;
+
+      .breadcrumb {
+        grid-column: 1/ 3;
+      }
+
+      .content {
+        @include padding($gutter, $gutter);
+        grid-column: 1;
+      }
+    }
+  }
+
+  @media screen and (max-width: $tablet) {
+    & {
+      display: block;
+      $gutter: 1.6rem;
+
+      .breadcrumb,
+      .content,
+      .aside .author__bio {
+        margin-bottom: $gutter;
+      }
     }
   }
 }

@@ -22,19 +22,10 @@ header {
     @include display-grid;
   }
 
-  .details {
-    @include display-grid;
-    grid-template-columns:
-      minmax(240px, 300px)
-      minmax(500px, 1fr)
-      minmax(240px, 300px);
-    align-items: start;
-    max-widith: $tablet;
-  }
-
   @media screen and (max-width: $tablet) {
+    $gutter: 1.6rem;
     & {
-      @include padding(1.6rem);
+      @include padding($gutter, $gutter);
     }
   }
 }
