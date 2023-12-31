@@ -2,17 +2,18 @@
   padding: $v $h;
 }
 
-@mixin display-flex($gap: 2.4rem, $jc: space-between) {
+@mixin display-flex($gap: 2.4rem, $jc: space-between, $dr: row) {
   display: flex;
   align-items: center;
   justify-content: $jc;
   gap: $gap;
   flex-wrap: wrap;
+  flex-direction: $dr;
 }
 
 @mixin display-grid($gap: 2.4rem) {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(32rem, 1fr));
   gap: $gap;
 }
 

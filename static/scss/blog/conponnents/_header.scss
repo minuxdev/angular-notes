@@ -9,8 +9,75 @@ header {
     width: 100%;
     max-width: $desktop;
 
+    #form_toggle,
+    #toggle {
+      display: none;
+    }
+
     ul {
-      @include display-flex();
+      @include display-flex;
+    }
+  }
+
+  @media screen and (max-width: $laptop) {
+    & {
+      .hero__nav {
+        .togglers {
+          @include display-flex($gap: 1.6rem);
+          z-index: 1200;
+
+          #form_toggle,
+          #toggle {
+            display: block;
+          }
+          #form_toggle {
+            background: none;
+            @include padding(0.8rem, 0.8rem);
+            border: none;
+            cursor: pointer;
+          }
+          #toggle {
+            cursor: pointer;
+            @include display-flex($gap: 0.4rem, $jc: center, $dr: column);
+
+            & > * {
+              background: map-get($colors, "title");
+              height: 0.25rem;
+              width: 3.2rem;
+            }
+          }
+        }
+
+        #form_search {
+          display: none;
+
+          &.active {
+            @include display-flex(0.8rem, center, column);
+            z-index: 100;
+            height: 100vh;
+            width: 100vw;
+            background: map-get($colors, "fg");
+            position: fixed;
+            top: 0;
+            left: 0;
+          }
+        }
+
+        ul {
+          display: none;
+
+          &.active {
+            @include display-flex($jc: center, $dr: column);
+            background: map-get($colors, "fg");
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100vw;
+            z-index: 100;
+          }
+        }
+      }
     }
   }
 }

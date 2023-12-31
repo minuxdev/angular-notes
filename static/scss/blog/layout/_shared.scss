@@ -31,6 +31,12 @@ header {
     align-items: start;
     max-widith: $tablet;
   }
+
+  @media screen and (max-width: $tablet) {
+    & {
+      @include padding(1.6rem);
+    }
+  }
 }
 
 .metadata {
