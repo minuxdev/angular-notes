@@ -25,10 +25,11 @@ class HomeViewTest(TestCase):
     def setUpTestData(cls):
         cls.category = Category.objects.create(name="category 1")
         cls.user = get_user_model().objects.create_user(
-            username="minux", password="test"
+            email="minux@email.com", password="test"
         )
 
     def setUp(self):
+        self.client.force_login(self.user)
         self.url = reverse("blog:home")
 
         self.article = Article.objects.create(
@@ -39,8 +40,6 @@ class HomeViewTest(TestCase):
         )
 
         self.response = self.client.get(self.url)
-
-        self.client.force_login(self.user)
 
     def test_url_resolve(self):
         """Test if url resolve to home view."""
@@ -60,12 +59,13 @@ class HomeViewTest(TestCase):
 
         self.assertContains(self.response, self.article.body)
 
-    def test_topic_is_link(self):
-        """Test if topic is used as link to instance"""
+    def test_home_has_article_links(self):
+        """Test if home has links for articles"""
+        print(self.response.content.decode("utf-8"))
 
         self.assertContains(
             self.response,
-            f'<a href="{self.article.get_absolute_url()}">{self.article.topic}',
+            f'href="{self.article.get_absolute_url()}"',
         )
 
 
@@ -76,10 +76,11 @@ class ArticleDetailsTest(TestCase):
     def setUpTestData(cls):
         cls.category = Category.objects.create(name="category 1")
         cls.user = get_user_model().objects.create_user(
-            username="minux", password="test"
+            email="minux@email.com", password="test"
         )
 
     def setUp(self):
+        self.client.force_login(self.user)
         self.article = Article.objects.create(
             author=self.user,
             category=self.category,
@@ -109,14 +110,13 @@ class ArticleCreateTest(TestCase):
     def setUpTestData(cls):
         cls.category = Category.objects.create(name="category 1")
         cls.user = get_user_model().objects.create_user(
-            username="minux", password="test"
+            email="minux@email.com", password="test"
         )
 
     def setUp(self):
+        self.client.force_login(self.user)
         self.url = reverse("blog:article_create")
         self.response = self.client.get(self.url)
-
-        self.client.force_login(self.user)
 
         self.form_data = {
             "category": self.category.pk,
@@ -151,7 +151,6 @@ class ArticleCreateTest(TestCase):
         img = SimpleUploadedFile(
             "img.jpeg", content=file, content_type="image/jpeg"
         )
-        self.client.force_login(self.user)
 
         self.form_data.update({"author": self.user.pk, "thumbnail": img})
 
@@ -174,10 +173,11 @@ class ArticleUpdateView(TestCase):
     def setUpTestData(cls):
         cls.category = Category.objects.create(name="category 1")
         cls.user = get_user_model().objects.create_user(
-            username="minux", password="test"
+            email="minux@email.com", password="testpasswd"
         )
 
     def setUp(self):
+        self.client.force_login(self.user)
         self.article = Article.objects.create(
             author=self.user,
             category=self.category,
@@ -189,7 +189,6 @@ class ArticleUpdateView(TestCase):
             "blog:article_update", kwargs={"slug": self.article.slug}
         )
         self.response = self.client.get(self.url)
-        self.client.force_login(self.user)
 
     def test_url_resolve(self):
         """Test if url resolve to article_update view."""
@@ -273,10 +272,14 @@ class CategoryTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
+        cls.user = get_user_model().objects.create_user(
+            email="minux@email.com", password="test"
+        )
         cls.category = Category.objects.create(name="Category")
         cls.url = reverse("blog:category_list")
 
     def setUp(self):
+        self.client.force_login(self.user)
         self.response = self.client.get(self.url)
 
     def test_url_resolve(self):

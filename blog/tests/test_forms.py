@@ -47,7 +47,7 @@ class CategoryFormTest(TestCase):
 class ArticleFormTest(TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_user(
-            username="user1", password="123test"
+            email="user1@email.com", password="123test"
         )
         self.category = Category.objects.create(name="Category")
         self.form_data = {

@@ -13,6 +13,9 @@ class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
     total_post = models.IntegerField(verbose_name="total posts", default=0)
 
+    class Meta:
+        ordering = ("-id", "name")
+
     def __str__(self):
         return self.name
 
@@ -63,6 +66,9 @@ class Article(models.Model):
             self.category.save()
 
         return super().save(*args, **kwargs)
+
+    class Meta:
+        ordering = ("-id", "updated_on")
 
     def __str__(self):
         return self.topic

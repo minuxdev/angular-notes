@@ -24,5 +24,6 @@ class UserLoginForm(forms.Form):
     def clean_email(self):
         email = self.cleaned_data.get("email")
         if len(str(email)) < 10:
+            # Change it to forms.ValidationError
             raise ValueError(_("Email cannot have less than ten characters."))
         return email

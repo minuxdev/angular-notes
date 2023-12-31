@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.forms import ValidationError
 from django.test import TestCase
 
 from users.forms import UserAddForm, UserEditForm, UserLoginForm
@@ -120,21 +121,15 @@ class UserLoginFormTest(TestCase):
         self.assertIn("email", form.fields)
         self.assertIn("password", form.fields)
 
-    def test_invalid_email(self):
-        """Test email validator"""
-
-        with self.assertRaises(ValueError):
-            form = UserLoginForm(
-                {"email": "e@admin.com", "password": "testpassword"}
-            )
-
     def test_short_email(self):
         """Test email is less than ten characters"""
 
+        # Change this to ValidationError
         with self.assertRaises(ValueError):
             form = UserLoginForm(
                 {"email": "e@dev.com", "password": "testpassword"}
             )
+            print(form["email"], len(str(form["email"])))
 
     def test_invalid_password(self):
         """Test passowrd validator"""

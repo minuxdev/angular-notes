@@ -45,7 +45,7 @@ class ArticleTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.user = get_user_model().objects.create_user(
-            username="minux", email="minux@test.com", password="testpassword"
+            email="minux@test.com", password="testpassword"
         )
         cls.category = Category.objects.create(name="Django")
 

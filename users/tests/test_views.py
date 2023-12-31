@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core import mail
 from django.test import TestCase
@@ -142,7 +143,7 @@ class LoginViewTest(TestCase):
 
         form_data = {"email": "minux@dev.com", "password": "validpassword"}
         response = self.client.post(self.url, data=form_data, follow=True)
-        self.assertRedirects(response, expected_url=reverse("blog:home"))
+        self.assertRedirects(response, expected_url=reverse("blog:dashboard"))
 
 
 class PasswordResetTest(TestCase):
