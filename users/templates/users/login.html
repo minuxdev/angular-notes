@@ -1,35 +1,30 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <title>Login Page</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="css/style.css" rel="stylesheet" />
-  </head>
-
-  <body>
-    <h1>Login Page</h1>
-    <form method="post">
-      {% csrf_token %}
-
-      <div class="input-group">
-        <label for="{{form.email.id_for_label}}">Email</label>
-        {{form.email}}
-        <small>{{form.email.errors}}</small>
-      </div>
-      <div class="input-group">
-        <label for="{{form.password.id_for_label}}">Password</label>
-        {{form.password}}
-        <small>{{form.password.errors}}</small>
-      </div>
-      <div class="input-group">
-        <input type="checkbox" name="remember" />
-        <span>Remember Me</span>
-        <a href="{% url 'reset_password' %}">Forgot password?</a>
-      </div>
-
-      <button>Login</button>
-      <p>Don't have an account? <a href="{% url 'create_user' %}">Signup</a></p>
-    </form>
-  </body>
-</html>
+{% extends 'base.html' %} {% block title %} Login Page ... {% endblock title %}
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+  <h1>Login Page</h1>
+  <button class="social__auth btn">
+    <i class="fa-brands fa-google"></i>
+    Continue with Google
+  </button>
+  <button class="social__auth btn">
+    <i class="fa-brands fa-facebook-f"></i>
+    Continue with Facebook
+  </button>
+  <div class="separator"></div>
+  <label for="{{form.email.id_for_label}}">Email</label>
+  <input type="email" name="email" placeholder="user@email.com" />
+  <label for="{{form.password.id_for_label}}">Password</label>
+  <input type="password" name="password" placeholder="myP@55wrD" />
+  <button class="btn btn-primary">Login</button>
+  <div class="input__group">
+    <a href="{% url 'reset_password' %}">Forgot password</a>
+    <a href="{% url 'create_user' %}">Signup</a>
+  </div>
+  <div class="errors">
+    {% for error in form.non_field.errors %}
+    <small>{{error}}</small>
+    {% endfor %}
+  </div>
+</form>
+{% endblock content %}

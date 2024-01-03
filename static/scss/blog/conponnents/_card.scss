@@ -1,11 +1,12 @@
 @use "../base" as *;
 
 .card {
-  @include padding();
+  @include padding($gutter);
   background: map-get($colors, "fg");
   max-width: $desktop;
   width: 100%;
   margin-inline: auto;
+  position: relative;
 
   & > * {
     margin-bottom: 2.4rem;
@@ -18,9 +19,9 @@
   }
 
   a.btn {
-    margin: 3.2rem 0 0 auto;
     display: block;
     width: max-content;
+    margin: 3.2rem 0 0 auto;
   }
 
   &.category {

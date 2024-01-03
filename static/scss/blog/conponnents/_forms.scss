@@ -1,18 +1,73 @@
 @use "../base" as *;
 
+form,
+.form {
+  max-width: $mobile;
+  margin-inline: auto;
+  @include padding;
+}
+
 form {
   background: map-get($colors, "fg");
-  @include padding;
-  max-width: $tablet;
+
+  h1 {
+    margin-bottom: 4.8rem;
+  }
 
   label {
     display: block;
     margin: 1.6rem auto 0.8rem;
   }
 
+  .input__group {
+    @include display-flex($jc: space-between);
+    & > * {
+      color: map-get($colors, "gray");
+    }
+    & > a {
+      text-decoration: underline;
+    }
+  }
+
+  small {
+    display: block;
+    margin-top: 0.4rem;
+    color: map-get($colors, "red");
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  .btn {
+    @include display-flex($gap: 0.8rem, $jc: center);
+    margin-bottom: 1.6rem;
+    padding: 1.6rem 2.4rem;
+    width: 100%;
+
+    &:has(i) {
+      background: map-get($colors, "bg");
+
+      i {
+        display: inline-block;
+        margin-right: 0.8rem;
+        width: 2.4rem;
+      }
+    }
+
+    &.btn-primary {
+      margin: 3.2rem 0;
+    }
+  }
+
+  .separator {
+    margin: 3.2rem 0;
+  }
+
   input {
     border: 0.2rem solid map-get($colors, "bg");
-    padding: 0.8rem 2.4rem;
+    padding: 1.6rem 2.4rem;
+    width: 100%;
 
     &::placeholder {
       color: map-get($colors, "placeholder");
@@ -20,13 +75,19 @@ form {
   }
 
   &.search {
+    max-width: $tablet;
     @include display-flex(0.8rem, center);
     @include padding(0.4rem, 0.8rem);
     border: 1px solid map-get($colors, "gray");
 
+    i {
+      color: map-get($colors, "placeholder");
+    }
+
     input {
       @include padding(0.8rem, 1.6rem);
       border: none;
+      width: auto;
     }
   }
 }

@@ -15,6 +15,15 @@
     width: 24rem;
     position: relative;
 
+    &.narrow {
+      width: 8rem;
+      li {
+        .text {
+          display: none;
+        }
+      }
+    }
+
     ul {
       @include padding;
       position: absolute;
@@ -24,6 +33,9 @@
       height: 100%;
       li {
         overflow-x: hidden;
+        @include display-flex($gap: 1.6rem);
+        flex-wrap: nowrap;
+        margin-bottom: $gutter;
       }
     }
 
@@ -71,6 +83,7 @@
       }
       .table {
         overflow-x: auto;
+        @include padding(0.8rem, 0);
         table {
           &,
           tr {
@@ -87,7 +100,7 @@
             width: 12%;
           }
           th:last-child {
-            width: 15%;
+            width: 12rem;
           }
           td:last-child {
             border: none;
@@ -95,6 +108,15 @@
             div {
               @include display-flex($gap: $gutter);
               flex-wrap: nowrap;
+              a:first-child i {
+                color: map-get($colors, "green");
+              }
+              a:nth-child(2) i {
+                color: map-get($colors, "blue");
+              }
+              a:last-child i {
+                color: map-get($colors, "red");
+              }
             }
           }
         }
@@ -123,6 +145,8 @@
   @media screen and (max-width: $tablet) {
     & {
       .content__wrapper {
+        $gutter: 1.6rem;
+        gap: $gutter;
         .content {
           .table {
             table {

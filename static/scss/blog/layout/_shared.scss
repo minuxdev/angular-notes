@@ -27,6 +27,9 @@ header {
     & {
       @include padding($gutter, $gutter);
     }
+    & > .card__wrapper {
+      gap: $gutter;
+    }
   }
 }
 

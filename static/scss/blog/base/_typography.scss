@@ -1,6 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&family=Playball&display=swap");
 :root {
   font-size: 62.5%;
+
+  @media screen and (max-width: 768px) {
+    & {
+      font-size: 55.6%;
+    }
+  }
 }
 body {
   font-family: "Nunito", sans-serif;
@@ -22,24 +28,22 @@ h1 {
 }
 h2,
 h2 a {
-  font-size: 3.2rem;
+  font-size: 3rem;
   line-height: 125%;
 }
 
 h3,
 h3 a {
-  font-size: 2.4rem;
+  font-size: 2.2rem;
   line-height: 125%;
 }
 
 h4,
 h4 a {
-  font-size: 2rem;
+  font-size: 1.8rem;
+  font-weight: 400;
 }
 
-p {
-  line-height: 140%;
-}
 small {
   font-size: 1.4rem;
 }
@@ -55,12 +59,18 @@ a,
 b,
 code,
 span {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
+  line-height: 1.5;
 }
 
 input,
+.btn,
 select {
   font-size: 1.6rem;
+}
+.btn {
+  font-weight: 500;
+  text-transform: uppercase;
 }
 
 .logo {
@@ -85,4 +95,8 @@ table {
   td i {
     font-size: 2rem;
   }
+}
+
+.side__menu i {
+  font-size: 2.4rem;
 }

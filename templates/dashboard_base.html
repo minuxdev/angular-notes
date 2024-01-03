@@ -17,25 +17,41 @@
 </head>
 <body>
     <div class="dashboard">
-        <div class="side__nav">
+        <div class="side__nav narrow">
             <ul class="side__menu">
-                <a href="{% url 'blog:home' %}" class="logo">{{ user }}</a>
+                <a href="{% url 'blog:home' %}" class="logo">{{ user.username }}</a>
                 <div class="separator"></div>
                 <li>
-                    <i class="fa-solid fa-house"></i>
-                    <a class="menu" href="{% url 'blog:home' %}">Home</a>
+                    <a class="menu" href="{% url 'blog:home' %}">
+                        <span class="icon">
+                            <i class="fa-solid fa-house"></i>
+                        </span>
+                        <span class="text">Home</span>
+                    </a>
                 </li>
                 <li>
-                    <i class="fa-solid fa-list"></i>
-                    <a class="menu" href="{% url 'blog:dashboard' %}?q=categories">Categories</a>
+                    <a class="menu" href="{% url 'blog:dashboard' %}?q=categories">
+                        <span class="icon">
+                            <i class="fa-solid fa-list"></i>
+                        </span>
+                        <span class="text">Categories</span>
+                    </a>
                 </li>
                 <li>
-                    <i class="fa-solid fa-gauge"></i>
-                    <a class="menu" href="{% url 'blog:dashboard' %}?q=articles">Dashboard</a>
+                    <a class="menu" href="{% url 'blog:dashboard' %}?q=articles">
+                        <span class="icon">
+                            <i class="fa-solid fa-gauge"></i>
+                        </span>
+                        <span class="text">Categories</span>
+                    </a>
                 </li>
                 <li class="dashboard__logout">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                    <a class="menu" href="{% url 'logout_user' %}">Logout</a>
+                    <a class="menu" href="{% url 'logout_user' %}">
+                        <span class="icon">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        </span>
+                        <span class="text">Logout</span>
+                    </a>
                 </li>
             </ul>
         </div>

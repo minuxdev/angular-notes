@@ -42,3 +42,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     objects = UserManager()
+
+    @property
+    def username(self):
+        return self.email.split("@")[0]

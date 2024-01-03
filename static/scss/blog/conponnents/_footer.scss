@@ -21,4 +21,15 @@ footer {
   p {
     margin: 0;
   }
+  .rights {
+    @include display-flex($gap: 0.8rem);
+    flex-wrap: nowrap;
+  }
+
+  .divisor {
+    height: 1.6rem;
+    width: 0.25rem;
+    background: map-get($colors, "primary");
+    display: inline-block;
+  }
 }
