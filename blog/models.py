@@ -10,17 +10,24 @@ User = get_user_model()
 
 
 class Category(models.Model):
+    author = models.ManyToManyField(to=User, null=True, blank=True)
     name = models.CharField(max_length=100, unique=True)
     total_post = models.IntegerField(verbose_name="total posts", default=0)
 
     class Meta:
         ordering = ("-total_post",)
+        verbose_name_plural = "categories"
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
         return reverse("blog:category_details", kwargs={"pk": self.pk})
+
+
+class ArticleManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(posted=True)
 
 
 class Article(models.Model):
@@ -52,6 +59,9 @@ class Article(models.Model):
     updated_on = models.DateTimeField(null=True, blank=True)
     views = models.IntegerField(default=0)
 
+    objects = models.Manager()
+    articles = ArticleManager()
+
     def thumbnail_url(self):
         if self.thumbnail:
             return self.thumbnail.url
@@ -74,6 +84,7 @@ class Article(models.Model):
 
     class Meta:
         ordering = ("-id", "updated_on")
+        verbose_name_plural = "articles"
 
     def __str__(self):
         return self.topic

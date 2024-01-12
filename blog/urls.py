@@ -10,6 +10,7 @@ urlpatterns = [
     path("", views.home, name="home"),
     path("dashboard/", views.dashboard, name="dashboard"),
     path("categories/", views.categories, name="category_list"),
+    path("categories/", views.category_create, name="category_create"),
     path(
         "categories/details/<pk>/",
         views.category_details,

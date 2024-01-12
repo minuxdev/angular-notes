@@ -1,11 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db import transaction
-from django.db.models import Q
+from django.db.models import F, Q
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
-from blog.forms import ArticleForm
+from blog.forms import ArticleForm, CategoryForm
 from blog.models import Article, Category
 
 
@@ -22,11 +22,11 @@ def construct_pagination(request, obj, per_page):
 def home(request):
     if request.method == "POST":
         query = request.POST["query"]
-        articles = Article.objects.filter(
+        articles = Article.articles.filter(
             Q(topic__icontains=query) | Q(body__icontains=query)
         )
     else:
-        articles = Article.objects.all()
+        articles = Article.articles.all()
     page_obj = construct_pagination(request, articles, 4)
 
     context = {"articles": articles, "page_obj": page_obj}
@@ -54,10 +54,20 @@ def get_category(pk):
 
 
 def categories(request):
-    categories = Category.objects.all()
+    categories = Category.objects.filter(total_post__gt=0)
     page_obj = construct_pagination(request, categories, 4)
     context = {"page_obj": page_obj}
     return render(request, "blog/categories.html", context)
+
+
+@login_required()
+def category_create(request):
+    form = CategoryForm()
+    if request.method == "POST":
+        if form.is_valid():
+            category = form.save()
+            return redirect(category.get_absolute_url())
+    return render(request, "blog/dashboard.html", {"form": form})
 
 
 def category_details(request, pk):
@@ -71,11 +81,13 @@ def category_details(request, pk):
     return render(request, "blog/category_details.html", context)
 
 
+@login_required()
 def category_update(request, pk):
     category = get_category(pk)
     return HttpResponse(category)
 
 
+@login_required()
 def category_delete(request, pk):
     category = get_category(pk)
     return HttpResponse(category)

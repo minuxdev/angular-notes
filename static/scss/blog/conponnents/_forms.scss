@@ -21,11 +21,28 @@ form {
 
   .input__group {
     @include display-flex($jc: space-between);
+    margin: 1.6rem auto 0.8rem;
+
     & > * {
       color: map-get($colors, "gray");
     }
     & > a {
       text-decoration: underline;
+    }
+    label {
+      margin: 0;
+    }
+  }
+
+  .inline__group {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    label {
+      margin: 0;
+    }
+    input {
+      padding: 0.4rem;
     }
   }
 
@@ -64,10 +81,12 @@ form {
     margin: 3.2rem 0;
   }
 
-  input {
+  input,
+  select {
     border: 0.2rem solid map-get($colors, "bg");
     padding: 1.6rem 2.4rem;
     width: 100%;
+    background: map-get($colors, "fg");
 
     &::placeholder {
       color: map-get($colors, "placeholder");
@@ -88,6 +107,22 @@ form {
       @include padding(0.8rem, 1.6rem);
       border: none;
       width: auto;
+    }
+  }
+  &.create__article {
+    max-width: $laptop;
+    .btn {
+      width: auto;
+    }
+  }
+
+  @media screen and (max-width: $tablet) {
+    & {
+      &.create__article {
+        .btn {
+          width: 100%;
+        }
+      }
     }
   }
 }

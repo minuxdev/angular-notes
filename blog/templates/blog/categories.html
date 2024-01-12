@@ -1,42 +1,46 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="card__wrapper">
-        {% for category in page_obj %}
-            <div class="card">
-                <h2>{{ category.name }}</h2>
-                <div class="metadata">
-                    <span>{{ category.updated_on.date | date:"l, M d, Y" }}</span>
-                    <span>{{ category.total_post }}</span>
+    {% if page_obj %}
+        <div class="card__wrapper">
+            {% for category in page_obj %}
+                <div class="card">
+                    <h2>{{ category.name }}</h2>
+                    <div class="metadata">
+                        <span>{{ category.updated_on.date | date:"l, M d, Y" }}</span>
+                        <span>{{ category.total_post }}</span>
+                    </div>
+                    <div class="separator"></div>
+                    <ul class="content">
+                        {% for article in category.article.all %}
+                            <li>
+                                <a href="{{ article.get_absolute_url }}">{{ article.topic }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <a class="btn btn-tertiary" href="{{ category.get_absolute_url }}">Read More</a>
                 </div>
-                <div class="separator"></div>
-                <ul class="content">
-                    {% for article in category.article.all %}
-                        <li>
-                            <a href="{{ article.get_absolute_url }}">{{ article.topic }}</a>
-                        </li>
-                    {% endfor %}
-                </ul>
-                <a class="btn btn-tertiary" href="{{ category.get_absolute_url }}">Read More</a>
-            </div>
-        {% endfor %}
-    </div>
-    {% comment %}Pagination{% endcomment %}
-    {% if page_obj.paginator.num_pages > 1 %}
-        <div class="pagination">
-            {% if page_obj.has_previous %}
-                {% if page_obj.previous_page_number > 1 %}<a class="btn btn-secondary" href="?page=1">1</a>{% endif %}
-                <a class="btn btn-secondary"
-                   href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
-            {% endif %}
-            <a class="btn btn-primary">{{ page_obj.number }}</a>
-            {% if page_obj.has_next %}
-                <a class="btn btn-secondary"
-                   href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
-                {% if page_obj.paginator.num_pages > page_obj.next_page_number %}
-                    <a class="btn btn-secondary"
-                       href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
-                {% endif %}
-            {% endif %}
+            {% endfor %}
         </div>
+        {% comment %}Pagination{% endcomment %}
+        {% if page_obj.paginator.num_pages > 1 %}
+            <div class="pagination">
+                {% if page_obj.has_previous %}
+                    {% if page_obj.previous_page_number > 1 %}<a class="btn btn-secondary" href="?page=1">1</a>{% endif %}
+                    <a class="btn btn-secondary"
+                       href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                {% endif %}
+                <a class="btn btn-primary">{{ page_obj.number }}</a>
+                {% if page_obj.has_next %}
+                    <a class="btn btn-secondary"
+                       href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+                    {% if page_obj.paginator.num_pages > page_obj.next_page_number %}
+                        <a class="btn btn-secondary"
+                           href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% endif %}
+    {% else %}
+        <h1>No categories found!</h1>
     {% endif %}
 {% endblock %}

@@ -1,36 +1,34 @@
-{% extends 'base.html' %} {% block title %} Create User Page ... {% endblock %}
+{% extends 'base.html' %}
+{% block title %}Create User Page ...{% endblock %}
 {% block content %}
-<form method="post" action="{% url 'create_user' %}">
-  {% csrf_token %}
-
-  <h1>Create Account</h1>
-  <button class="social__auth btn">
-    <i class="fa-brands fa-google"></i>
-    Continue with Google
-  </button>
-  <button class="social__auth btn">
-    <i class="fa-brands fa-facebook-f"></i>
-    Continue with Facebook
-  </button>
-  <div class="separator"></div>
-  <label for="{{form.email.id_for_label}}">Email</label>
-  <input type="email" name="email" placeholder="user@email.com" />
-  <small>{{form.email.errors}}</small>
-  <label for="{{form.password1.id_for_label}}">Password</label>
-  <input type="password" name="password1" placeholder="myP@55wrD" />
-  <small>{{form.password1.errors}}</small>
-  <label for="{{form.password2.id_for_label}}">Cofirm Password</label>
-  <input type="password" name="password2" placeholder="myP@55wrD" />
-  <small>{{form.password2.errors}}</small>
-  <div class="errors">
-    {% for error in form.non_field.errors %}
-    <small>{{error}}</small>
-    {% endfor %}
-  </div>
-  <button class="btn btn-primary">Create Account</button>
-  <div class="input__group">
-    <p>Already a member?</p>
-    <a href="{% url 'login_user' %}">Login</a>
-  </div>
-</form>
+    <form method="post" action="{% url 'create_user' %}">
+        {% csrf_token %}
+        <h1>Create Account</h1>
+        <button class="social__auth btn">
+            <i class="fa-brands fa-google"></i>
+            Continue with Google
+        </button>
+        <button class="social__auth btn">
+            <i class="fa-brands fa-facebook-f"></i>
+            Continue with Facebook
+        </button>
+        <div class="separator"></div>
+        <label for="{{ form.email.id_for_label }}">Email</label>
+        <input type="email" name="email" placeholder="user@email.com" />
+        <small>{{ form.email.errors }}</small>
+        <label for="{{ form.password1.id_for_label }}">Password</label>
+        <input type="password" name="password1" placeholder="myP@55wrD" />
+        <small>{{ form.password1.errors }}</small>
+        <label for="{{ form.password2.id_for_label }}">Cofirm Password</label>
+        <input type="password" name="password2" placeholder="myP@55wrD" />
+        <small>{{ form.password2.errors }}</small>
+        <div class="errors">
+            {% for error in form.non_field.errors %}<small>{{ error }}</small>{% endfor %}
+        </div>
+        <button class="btn btn-primary">Create Account</button>
+        <div class="input__group">
+            <p>Already a member?</p>
+            <a href="{% url 'login_user' %}">Login</a>
+        </div>
+    </form>
 {% endblock content %}

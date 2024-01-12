@@ -389,12 +389,27 @@ form .input__group {
   gap: 2.4rem;
   flex-wrap: wrap;
   flex-direction: row;
+  margin: 1.6rem auto 0.8rem;
 }
 form .input__group > * {
   color: #888;
 }
 form .input__group > a {
   text-decoration: underline;
+}
+form .input__group label {
+  margin: 0;
+}
+form .inline__group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+form .inline__group label {
+  margin: 0;
+}
+form .inline__group input {
+  padding: 0.4rem;
 }
 form small {
   display: block;
@@ -429,12 +444,15 @@ form .btn.btn-primary {
 form .separator {
   margin: 3.2rem 0;
 }
-form input {
+form input,
+form select {
   border: 0.2rem solid #f0f0f0;
   padding: 1.6rem 2.4rem;
   width: 100%;
+  background: #fefefe;
 }
-form input::placeholder {
+form input::placeholder,
+form select::placeholder {
   color: #999;
 }
 form.search {
@@ -455,6 +473,17 @@ form.search input {
   padding: 0.8rem 1.6rem;
   border: none;
   width: auto;
+}
+form.create__article {
+  max-width: 1200px;
+}
+form.create__article .btn {
+  width: auto;
+}
+@media screen and (max-width: 800px) {
+  form.create__article .btn {
+    width: 100%;
+  }
 }
 
 .card {

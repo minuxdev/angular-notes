@@ -1,8 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>Create Article</h1>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %} {{ form.as_p }}
-        <button>Create Article</button>
+    <form class="create__article" method="post" enctype="multipart/form-data">
+        <h1>Create Article</h1>
+        {% csrf_token %}
+        <label for="{{ form.category.id_for_label }}">Category</label>
+        {% for option in form.category.choices %}<option value="{{ option }}">{{ option }}</option>{% endfor %}
+        {{ form.category }}
+        <small>{{ form.password1.errors }}</small>
+        <label for="{{ form.topic.id_for_label }}">Topic</label>
+        <input type="text" name="topic" placeholder="Article Topic" />
+        <small>{{ form.email.errors }}</small>
+        <label for="{{ form.body.id_for_label }}">Body</label>
+        {{ form.body }}
+        <small>{{ form.email.errors }}</small>
+        <div class="input__group">
+            <div class="inline__group">
+                <label for="{{ form.posted.id_for_label }}">Posted</label>
+                {{ form.posted }}
+            </div>
+            <div class="inline__group">
+                <label for="{{ form.thumbnail.id_for_label }}">Thumbnail</label>
+                {{ form.thumbnail }}
+            </div>
+        </div>
+        <button class="btn btn-primary">Create Article</button>
     </form>
 {% endblock %}

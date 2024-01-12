@@ -1,0 +1,347 @@
+id,topic,body,posted,thumbnail,created_on,updated_on,views,author_id,category_id,slug
+4,Sessions,"<p>In context of web development, a session refers to a way of maintaining state information about user&rsquo;s interaction with a website or application. Sessions are stored in server side being only stored the session id in client side which is used to associate the user&rsquo;s requests with their specific session.</p>
+<p>Sessions are used to provide personalized experience for each user, display users name and preferences throughout the site and more.</p>
+<h3>Enabling sessions in Django</h3>
+<p>To make use of sessions in Django, first we need to make sure we have the following in <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""1"">settings.py</span> file <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""3"">django.contrib.sessions.middleware.SessionMiddleware</span> present in <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""5"">MIDDLEWARE</span> list (this is activated by default when we start new project with <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""7"">django-admin startproject</span>) and <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""9"">django.contrib.sessions</span> in <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""11"">INSTALLED_APPS</span>.</p>
+<p>Configuring the session engine</p>
+<p>The Django session framework provide us a couple engines that we can use to store sessions data being the default one <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""1"">database-backed. </span>Depending on our needs, we can choose to use different engines such as:</p>
+<ul>
+<li><a class=""notion-link-token notion-focusable-token notion-enable-hover"" style=""cursor: pointer; color: inherit; word-wrap: break-word; text-decoration: inherit;"" tabindex=""0"" href=""https://docs.djangoproject.com/en/5.0/topics/http/sessions/#using-cached-sessions"" rel=""noopener noreferrer"" data-token-index=""0""><span class=""link-annotation-unknown-block-id-2099352214"" style=""border-bottom: 0.05em solid; border-color: rgba(55,53,47,.4); opacity: 0.7;"">cached-based session</span></a></li>
+<li><a class=""notion-link-token notion-focusable-token notion-enable-hover"" style=""cursor: pointer; color: inherit; word-wrap: break-word; text-decoration: inherit;"" tabindex=""0"" href=""https://docs.djangoproject.com/en/5.0/topics/http/sessions/#using-file-based-sessions"" rel=""noopener noreferrer"" data-token-index=""0""><span class=""link-annotation-unknown-block-id-125918358"" style=""border-bottom: 0.05em solid; border-color: rgba(55,53,47,.4); opacity: 0.7;"">file-based sessions</span></a></li>
+<li><a class=""notion-link-token notion-focusable-token notion-enable-hover"" style=""cursor: pointer; color: inherit; word-wrap: break-word; text-decoration: inherit;"" tabindex=""0"" href=""https://docs.djangoproject.com/en/5.0/topics/http/sessions/#using-cookie-based-sessions"" rel=""noopener noreferrer"" data-token-index=""1""><span class=""link-annotation-unknown-block-id-2114840366"" style=""border-bottom: 0.05em solid; border-color: rgba(55,53,47,.4); opacity: 0.7;"">cookies-based session</span></a></li>
+</ul>
+<h3>Sessions usage</h3>
+<p>When <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""1"">SessionMiddleware </span>is activated, each <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""3"">HttpRequest</span> object (the first argument passed to any Django function view) will have a <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""5"">session</span> attribute which is a dictionary-like object.</p>
+<p>The sessions object is accessed through <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""1"">request.session</span> from which we can get, delete, set and update sessions keys and values. Some of this object methods are:</p>
+<p><span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""0"">__getitem__(key)</span>: allows us to get the key value</p>
+<pre class=""language-python""><code>name = request.session['name']</code></pre>
+<p>&nbsp;</p>
+<p><span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""0"">__setitem__(key, value)</span> : this allows us to set new values to session object</p>
+<pre class=""language-python""><code>request.session['name'] = 'my name'</code></pre>
+<p>&nbsp;</p>
+<p><span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""0"">__delitem__(key)</span>: used to delete specific session key, raises <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""2"">KeyError </span>if the given key doesn&rsquo;t exist</p>
+<pre class=""language-python""><code>del request.session['name']</code></pre>
+<p>&nbsp;</p>
+<p><span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""0"">__contains__(key)</span>: check if <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""2"">key</span> exist in session object</p>
+<pre class=""language-python""><code>'name' in request.session</code></pre>
+<p>&nbsp;</p>
+<p><span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""0"">get(key, default=None)</span>: allows us to get or set default value for the key if it doesn&rsquo;t already exist.</p>
+<pre class=""language-python""><code>name = request.session.get('name', 'my name')</code></pre>
+<p>&nbsp;</p>
+<p><span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""0"">pop(key, default=None)</span>: returns the value of the removed <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""2"">key</span> or default value if <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""4"">key</span> isn&rsquo;t created already</p>
+<pre class=""language-python""><code>name = request.session.pop('name', None)</code></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Check <a class=""notion-link-token notion-focusable-token notion-enable-hover"" style=""cursor: pointer; color: inherit; word-wrap: break-word; text-decoration: inherit;"" tabindex=""0"" href=""https://docs.djangoproject.com/en/5.0/topics/http/sessions/#django.contrib.sessions.backends.base.SessionBase.keys"" rel=""noopener noreferrer"" data-token-index=""1""><span class=""link-annotation-unknown-block-id--1231032645"" style=""border-bottom: 0.05em solid; border-color: rgba(55,53,47,.4); opacity: 0.7;"">Django documentation</span></a> for a complete list of methods available to interact with sessions.</p>
+<h2>Example of session usage in views</h2>
+<p>Let&rsquo;s say we want to implement a view counter to our blog articles to track how many times each article got visited. We are going to implement this in our details view given the fact that here is where our visitors go to read specific articles we have posted.</p>
+<pre class=""language-python""><code>def article_details(request, slug):
+		# Get the specified article
+    article = Article.objects.get(slug=slug)
+		# Assigning article.pk to id_ variable
+    id_ = article.pk
+		# Assigning session with key 'instance_id_' or 0 to instance_id
+		# For each visited article a key with format 'instance_id' will be created
+    instance_id = request.session.get(f""instance_{id_}"", 0)
+		
+		# Increment 1 to article.views if article.pk is not instance_id
+    if instance_id != article.pk:
+        article.views += 1
+        article.save()
+        request.session[f""instance_{id_}""] = article.pk
+
+    context = {""article"": article}
+    return render(request, ""blog/article_details.html"", context=context)</code></pre>
+<h2>Conclusion</h2>
+<p>In this article we have discussed what sessions are, how to enable session in django along with the different engines we can use depending on our needs. We also seen some methods that we can use with session object and finally, applied this concepts to build a simple article counter system using sessions.</p>",1,thumbnails/0rj6vjL.jpeg,2023-12-25 00:08:02,2024-01-12 20:07:57.165610,13,1,1,sessions
+5,F expression,"<p>When searching for data in database is quite often you want to retrieve it based on a certain criteria, however, searching for data in a single column may not be enough when you want to retrieve a set of data that the condition depends on a comparison of two columns, do some math operations with other fields and so on which makes the filter complex. In Django, among the various tools available within <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""1"">Query Sets</span>, the <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""3"">F</span> expression is what you are looking for to the task.</p>
+<h2>What is F expression</h2>
+<p>Is an object that represents the value of a model field, annotated column or a transformed value of a model field which makes possible to refer to a model field values an perform database operations without actually pulling them out to Python memory.</p>
+<p>I will be working upon this models to illustrate its usage.</p>
+<pre class=""language-python""><code># models.py
+class Article(models.Model):
+    category = models.CharField(max_length=100)
+    topic = models.CharField(max_length=200)
+    body = models.TextField()
+    views = models.IntegerField(default=0)
+    total_comments = models.IntegerField(default=0)
+		points = models.IntegerFied(default=0)
+		pub_date = models.DateField(auto_now_add=True)
+
+    class Meta:
+        db_table = ""article""
+        ordering = (""-id"", ""views"")
+
+    def __str__(self):
+        return self.topic</code></pre>
+<p>Let&rsquo;s say we want to increment the views value of an article with <span class=""notion-enable-hover"" style=""font-style: italic;"" data-token-index=""1"">topic</span> equals to <span class=""notion-enable-hover"" style=""font-style: italic;"" data-token-index=""3"">F expression</span>. Normally we&rsquo;d do</p>
+<pre class=""language-python""><code>article = Articles.objects.get(topic='F expression')
+article.views += 1
+article.save()</code></pre>
+<p>Breaking down the above snippet, we have fetched the data matching the specified topic into Python memory, manipulated its views field value and saved it back to the database.</p>
+<p>We can do this using <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""1"">F</span> expression as follow</p>
+<pre class=""language-python""><code>from django.db.models import F
+
+article = Articles.objects.get(topic='F expression')
+article.views = F('views') + 1
+article.save()</code></pre>
+<p>The key difference here is that in the first example we are doing <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""1"">in-memory</span> (Python task) manipulation while in the second we are only constructing a SQL statement that tells the database to increment by 1 whatever is views value which save some space in memory because the operation itself is handled directly in database.</p>
+<p>It means that using <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""1"">F</span> expression Python doesn&rsquo;t know about views value and consequently we cannot use a <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""3"">print</span> statement to print its value without <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""5"">refresh_from_db</span> method.</p>
+<p>Note: Is worthless using <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""1"">F</span> expression like the example above, in this scenario, choose the first example instead to avoid unexpected behavior because <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""3"">F</span> expression values are persistent and unless you use the <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""5"">refresh_from_db</span> method views will be incremented by 1 each time we call <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""7"">save</span> method.</p>
+<h2>F expression in queries</h2>
+<p>Using <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""1"">F</span> expressions in queries is where it really stands out in terms of performance and the other benefit of it is that with <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""3"">F</span> expressions we also avoid the <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""5"">race conditions</span>.</p>
+<h3><span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""0"">Race conditions</span></h3>
+<p>Let&rsquo;s say we have two users <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""1"">A</span> and <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""3"">B </span>and views value of 10. If A retrieve views will get 10, and B will also get 10, however, if A increments views value by two and save we can say that now views is equals to 12, right? What happen if B increments views value by one and save is that views value gets updated to 11 and automatically the value updated by A user gets lost.</p>
+<pre class=""language-python""><code># Consider views = 10
+A = Articles.objects.get(topic='F expression')
+B = Articles.objects.get(topic='F expression')
+
+A.views += 2
+A.save() # views is updated to 12
+
+B.views += 1
+B.save() # views is updated to 11. 12 is replaced by 11 beause of the race condition</code></pre>
+<p><span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""0"">F</span> expression save us from that problem because both users will use column reference instead of its value, meaning, using the above example B would increment one in the value already updated by the user A and now views become 13 instead.</p>
+<pre class=""language-python""><code>from django.db.models import F
+
+# Consider views = 10
+A = Articles.objects.get(topic='F expression')
+B = Articles.objects.get(topic='F expression')
+
+A.views = F('views') + 2
+A.save() # views is updated to 12
+
+B.views += 1
+B.save() # views is updated to 13</code></pre>
+<h2>F expression with filter</h2>
+<p>If we want to retrieve all records where <span class=""notion-enable-hover"" style=""font-style: italic;"" data-token-index=""1"">views</span> is greater that <span class=""notion-enable-hover"" style=""font-style: italic;"" data-token-index=""3"">total_comments</span> we can do</p>
+<pre class=""language-python""><code>Article.objects.filter(views__gt=F('total_comments'))</code></pre>
+<p>To find all entries where <span class=""notion-enable-hover"" style=""font-style: italic;"" data-token-index=""1"">views</span> plus <span class=""notion-enable-hover"" style=""font-style: italic;"" data-token-index=""3"">total_comments</span> is less than <span class=""notion-enable-hover"" style=""font-style: italic;"" data-token-index=""5"">points</span></p>
+<pre class=""language-python""><code>Article.objects.filter(views__lt=F('total_comments') * 2)</code></pre>
+<p>&nbsp;</p>
+<p>To find all entries where <span class=""notion-enable-hover"" style=""font-style: italic;"" data-token-index=""1"">views</span> plus <span class=""notion-enable-hover"" style=""font-style: italic;"" data-token-index=""3"">total_comments</span> is less than <span class=""notion-enable-hover"" style=""font-style: italic;"" data-token-index=""5"">points</span></p>
+<pre class=""language-python""><code>Article.objects.filter(points_gt=F('views') + F('total_comments'))</code></pre>
+<p>&nbsp;</p>
+<p>To find all entries where <span class=""notion-enable-hover"" style=""font-style: italic;"" data-token-index=""1"">views</span> is equals to <span class=""notion-enable-hover"" style=""font-style: italic;"" data-token-index=""3"">points</span></p>
+<pre class=""language-python""><code>Article.objects.filter(views=F('points'))</code></pre>
+<p>&nbsp;</p>
+<h2>F expression with update</h2>
+<p>Other use case of <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""1"">F</span> expression is when we want to update multiple entries at once. Let&rsquo;s say we want to update all data by incrementing views by 10, without <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""3"">F</span> expression we can do</p>
+<pre class=""language-python""><code># Updating in Python 
+articles = Articles.objects.all()
+
+for article in articles:
+	article.views += 10
+	article.save()</code></pre>
+<p>We don&rsquo;t need to be experts to see how costly it can be when we have thousands of entries to update. We can solve this by using <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""1"">F</span> expression as follow</p>
+<pre class=""language-python""><code>from django.db.models import F
+
+# Updating directly in database
+Articles.objects.update(views=F('views') + 10)</code></pre>
+<h2>Conclusion</h2>
+<p><span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""0"">F</span> expression can make our apps more efficient when appropriately used given the fact that constructed SQL statements are executed in database level rather than Python memory.</p>
+<p>In this way, They allow us to perform updates directly in the database, avoiding the need to pull the data into Python, modify it and save them back to the database which is a headache to scale the app.</p>
+<p>Reduces the database round-trips since we only send SQL statements an not manipulating the database entries directly from Python</p>
+<p>Maintaining database integrity since <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""1"">F</span> expressions ensure that the values are updated consistently and avoiding race conditions.</p>
+<p>&nbsp;</p>",1,thumbnails/YrLOXUz.jpeg,2023-12-28 20:38:53,2024-01-12 20:07:54.885368,7,1,2,f-expression
+6,Q objects,"<p>Some times we get caught in a situation where we want to allow users to search for a particular entries in the database that can appear in any field in a set of fields and return all entries accordingly which is not an easy task using the traditional way of searching for data in the database.</p>
+<p>In this tutorial we are going to learn about <strong>Q</strong> expressions, use cases and how to build a complex search system in Django.</p>
+<p>&nbsp;</p>
+<h2>What is Q object</h2>
+<p>Represents an SQL condition that can be used in database-related operations. Is used on queries that involve logical operations which allows us to build more complex search systems.</p>
+<p>Q objects can be combined using logical operators <strong>OR</strong>, <strong>AND</strong> and <strong>XOR</strong> to perform a complex SQL statements by comparing different fields in database.</p>
+<p>&nbsp;</p>
+<h2>Building complex search systems using Q object</h2>
+<p>In order to exemplify the usage of Q object we will take as an example the following model</p>
+<pre class=""language-python""><code>from django.db import models
+
+class Player(models.Model):
+		first_name = models.CharField(max_length=200)
+		last_name = models.CharField(max_length=200)
+		age = models.IntegerField(default=0)
+		points = models.IntegerField(default=0)
+
+		def __str__(self):
+				return f""{self.first_name} + {last_name}""</code></pre>
+<h3>OR condition (|)</h3>
+<p>With Q object we can filter entries using an OR condition where the returned query-set is a list of all data that matched at least one of the condition.</p>
+<p>If we want to pull players that match <em>first_name=&rsquo;Alex&rsquo;</em> or <em>age=18</em> we can do</p>
+<pre class=""language-python""><code>from django.db.models import Q
+...
+players = Player.objects.filter(Q(first_name='Alex') | Q(age=18))</code></pre>
+<p>In above example, <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""1"">players</span> is a collection of entries in the database that met the condition <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""3"">first_name='Alex'</span> or <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""5"">age=18</span>, meaning, the query-set will result in a list of players <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""7"">Alexes</span> and those on age <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""9"">18</span>.</p>
+<h2>AND condition (&amp;)</h2>
+<p>This is one of the most used without even using the Q object. The query-set is a list of all entries that met the all AND conditions.</p>
+<p>If we want to retrieve players that match <em>first_name=&rsquo;Maia&rsquo;</em> AND <em>last_name=&rsquo;Noor&rsquo;</em> we do</p>
+<p>&nbsp;</p>
+<pre class=""language-python""><code>from django.db.models import Q
+...
+players = Player.objects.filter(Q(first_name='Maia') &amp; Q(last_name='Noor'))
+
+# This is equivalent to
+players = Player.objects.filter(Q(first_name='Maia'), Q(last_name='Noor'))
+
+# Or simply
+players = Player.objects.filter(first_name='Maia',last_name='Noor')</code></pre>
+<h2>XOR condition (^)</h2>
+<p>The query-set is a list of all entries where the query parameter do not appear in both lookups.</p>
+<p>If we want to retrieve all players that contains <em>Malaya</em> as <em>first_name</em> or <em>last_name</em> but not in both we can do</p>
+<p>&nbsp;</p>
+<pre class=""language-python""><code>from django.db.models import Q
+...
+players = Player.objects.filter(Q(first_name='Malaya') ^ Q(last_name='Malaya'))</code></pre>
+<p>Lastly, we can also combine normal queries as above with negated Q object using the logical <strong><strong><strong>NOT</strong></strong></strong> (~) operator. For example, we can construct a query to get all entries where <em>points</em> is NOT equals to 50 as follow</p>
+<pre class=""language-python""><code>from django.db.models import Q
+...
+players = Player.objects.filter(~Q(points=50))</code></pre>
+<h2>Conclusion</h2>
+<p>By using Q object we can make the search thorough the app a very simplified process with complex searching conditions. It allows us to build complex searching system with only couple lines of code by using its logical operators which bring us much flexibility to search for content over as many fields as needed and return the data based on certain conditions we want.</p>",1,thumbnails/NfJoVv9.jpeg,2023-12-28 20:46:27,2024-01-03 22:21:29.002568,11,1,4,q-objects
+7,Django Sessions,"<p>In context of web development, a session refers to a way of maintaining state information about user&rsquo;s interaction with a website or application. Sessions are stored in server side being only stored the session id in client side which is used to associate the user&rsquo;s requests with their specific session.</p>
+<p>Sessions are used to provide personalized experience for each user, display users name and preferences throughout the site and more.</p>
+<h3>Enabling sessions in Django</h3>
+<p>To make use of sessions in Django, first we need to make sure we have the following in <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""1"">settings.py</span> file <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""3"">django.contrib.sessions.middleware.SessionMiddleware</span> present in <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""5"">MIDDLEWARE</span> list (this is activated by default when we start new project with <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""7"">django-admin startproject</span>) and <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""9"">django.contrib.sessions</span> in <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""11"">INSTALLED_APPS</span>.</p>
+<p>Configuring the session engine</p>
+<p>The Django session framework provide us a couple engines that we can use to store sessions data being the default one <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""1"">database-backed. </span>Depending on our needs, we can choose to use different engines such as:</p>
+<ul>
+<li><a class=""notion-link-token notion-focusable-token notion-enable-hover"" style=""cursor: pointer; color: inherit; word-wrap: break-word; text-decoration: inherit;"" tabindex=""0"" href=""https://docs.djangoproject.com/en/5.0/topics/http/sessions/#using-cached-sessions"" rel=""noopener noreferrer"" data-token-index=""0""><span class=""link-annotation-unknown-block-id-2099352214"" style=""border-bottom: 0.05em solid; border-color: rgba(55,53,47,.4); opacity: 0.7;"">cached-based session</span></a></li>
+<li><a class=""notion-link-token notion-focusable-token notion-enable-hover"" style=""cursor: pointer; color: inherit; word-wrap: break-word; text-decoration: inherit;"" tabindex=""0"" href=""https://docs.djangoproject.com/en/5.0/topics/http/sessions/#using-file-based-sessions"" rel=""noopener noreferrer"" data-token-index=""0""><span class=""link-annotation-unknown-block-id-125918358"" style=""border-bottom: 0.05em solid; border-color: rgba(55,53,47,.4); opacity: 0.7;"">file-based sessions</span></a></li>
+<li><a class=""notion-link-token notion-focusable-token notion-enable-hover"" style=""cursor: pointer; color: inherit; word-wrap: break-word; text-decoration: inherit;"" tabindex=""0"" href=""https://docs.djangoproject.com/en/5.0/topics/http/sessions/#using-cookie-based-sessions"" rel=""noopener noreferrer"" data-token-index=""1""><span class=""link-annotation-unknown-block-id-2114840366"" style=""border-bottom: 0.05em solid; border-color: rgba(55,53,47,.4); opacity: 0.7;"">cookies-based session</span></a></li>
+</ul>
+<h3>Sessions usage</h3>
+<p>When <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""1"">SessionMiddleware </span>is activated, each <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""3"">HttpRequest</span> object (the first argument passed to any Django function view) will have a <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""5"">session</span> attribute which is a dictionary-like object.</p>
+<p>The sessions object is accessed through <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""1"">request.session</span> from which we can get, delete, set and update sessions keys and values. Some of this object methods are:</p>
+<ul>
+<li><span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""0"">__getitem__(key)</span>: allows us to get the key value</li>
+</ul>
+<pre class=""language-python""><code>name = request.session['name']</code></pre>
+<p>&nbsp;</p>
+<ul>
+<li><span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""0"">__setitem__(key, value)</span> : this allows us to set new values to session object</li>
+</ul>
+<pre class=""language-python""><code>request.session['name'] = 'my name'</code></pre>
+<p>&nbsp;</p>
+<ul>
+<li><span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""0"">__delitem__(key)</span>: used to delete specific session key, raises <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""2"">KeyError </span>if the given key doesn&rsquo;t exist</li>
+</ul>
+<pre class=""language-python""><code>del request.session['name']</code></pre>
+<p>&nbsp;</p>
+<ul>
+<li><span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""0"">__contains__(key)</span>: check if <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""2"">key</span> exist in session object</li>
+</ul>
+<pre class=""language-python""><code>'name' in request.session</code></pre>
+<p>&nbsp;</p>
+<ul>
+<li><span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""0"">get(key, default=None)</span>: allows us to get or set default value for the key if it doesn&rsquo;t already exist.</li>
+</ul>
+<pre class=""language-python""><code>name = request.session.get('name', 'my name')</code></pre>
+<p>&nbsp;</p>
+<ul>
+<li><span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""0"">pop(key, default=None)</span>: returns the value of the removed <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""2"">key</span> or default value if <span class=""notion-enable-hover"" style=""font-weight: 600;"" data-token-index=""4"">key</span> isn&rsquo;t created already</li>
+</ul>
+<pre class=""language-python""><code>name = request.session.pop('name', None)</code></pre>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Check <a class=""notion-link-token notion-focusable-token notion-enable-hover"" style=""cursor: pointer; color: inherit; word-wrap: break-word; text-decoration: inherit;"" tabindex=""0"" href=""https://docs.djangoproject.com/en/5.0/topics/http/sessions/#django.contrib.sessions.backends.base.SessionBase.keys"" rel=""noopener noreferrer"" data-token-index=""1""><span class=""link-annotation-unknown-block-id--1231032645"" style=""border-bottom: 0.05em solid; border-color: rgba(55,53,47,.4); opacity: 0.7;"">Django documentation</span></a> for a complete list of methods available to interact with sessions.</p>
+<h2>Example of session usage in views</h2>
+<p>Let&rsquo;s say we want to implement a view counter to our blog articles to track how many times each article got visited. We are going to implement this in our details view given the fact that here is where our visitors go to read specific articles we have posted.</p>
+<pre class=""language-python""><code>def article_details(request, slug):
+		# Get the specified article
+    article = Article.objects.get(slug=slug)
+		# Assigning article.pk to id_ variable
+    id_ = article.pk
+		# Assigning session with key 'instance_id_' or 0 to instance_id
+		# For each visited article a key with format 'instance_id' will be created 
+    instance_id = request.session.get(f""instance_{id_}"", 0)
+		
+		# Increment 1 to article.views if article.pk is not instance_id
+    if instance_id != article.pk:
+        article.views += 1
+        article.save()
+        request.session[f""instance_{id_}""] = article.pk
+
+    context = {""article"": article}
+    return render(request, ""blog/article_details.html"", context=context)</code></pre>
+<h2>Conclusion</h2>
+<p>In this article we have discussed what sessions are, how to enable session in django along with the different engines we can use depending on our needs. We also seen some methods that we can use with session object and finally, applied this concepts to build a simple article counter system using sessions.</p>",1,thumbnails/NQ1wZkF.jpeg,2023-12-28 21:05:43,2024-01-12 20:29:57.331200,11,1,1,django-sessions
+8,Python Dictionary,"<p>Python dictionaries are used to store data values in <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""1"">key:value</span> format. Are ordered (only from python 3.7+), mutable, however, do not accept duplicated keys.</p>
+<pre class=""language-python""><code>data = { 'key_1': value_1, 'key_2': 'value_2',...}
+
+# Or
+data = dict('key_1': value_1, 'key_2': 'value_2')</code></pre>
+<p>Items are collection of <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""1"">key:value</span> pairs where <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""3"">value</span> can be accessed through <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""5"">object['key']</span> or <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""7"">object.key</span> key notation.</p>
+<h2>Ordered</h2>
+<p>This means from python 3.7 we can have access to its item through item indexes.</p>
+<pre class=""language-python""><code>data = {'name': 'Elia', 'age':28}
+data[0] == 'Elia'
+data[1] == 28</code></pre>
+<h2>Mutable</h2>
+<p>This means once it is defined, we can still manipulate it by adding new items, override values.</p>
+<pre class=""language-python""><code>data['height'] == 1.69 # New
+data['name'] == 'Minux' # change the value of key 'name'</code></pre>
+<h2>Do not accept duplicated keys</h2>
+<p>It means we cannot assign two values to the same <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""1"">key </span></p>
+<p>If we do so we will be <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>overriding</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong> values in that key and the last one will stored.</p>
+<pre class=""language-python""><code>data = {
+'name': 'Elia', 
+'age': 28, # Initial value
+'age': 32, # Override 28
+'age': 54, # Override 32 and this get stored
+}</code></pre>
+<h2>Items datatype</h2>
+<p>In dictionaries, <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""1"">values</span> can be of any type</p>
+<pre class=""language-python""><code>data = {
+...,
+phones: [867588, 746569, ...],
+hobies: ('whatch tv', 'read novels', etc),
+'parents': {'father':'fathers name', 'mother': 'mothers name'}
+}</code></pre>
+<h2>Actions</h2>
+<h3>len(object)</h3>
+<p>Returns a number of keys in a dictionary.</p>
+<pre class=""language-python""><code>data = {'name':'Elia', 'age': 28}
+len(data) == 2</code></pre>
+<h3>Add Values</h3>
+<p>To add values we only assign <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""1"">values</span> to a nonexistent <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""3"">keys</span></p>
+<pre class=""language-python""><code>data['new_key'] = 'key_value'
+# Or
+data.update({new_key: key_value})</code></pre>
+<h3>Change value</h3>
+<p>Dictionary values are changed by assign new values to <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""1"">keys</span> either using square brackets <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""3"">[key]</span> notation or <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""5"">update({key:value})</span> method</p>
+<pre class=""language-python""><code>data['name'] = 'New name'
+# Or
+data.update({'name': 'New name'})</code></pre>
+<h3>Remove items</h3>
+<p>There are different approaches when it comes to remove items from dictionaries</p>
+<p><strong>.pop(key)</strong></p>
+<p>Remove item specified with <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""1"">key</span></p>
+<pre class=""language-python""><code>data.pop('name') # Remove item identified by name</code></pre>
+<p><strong>.popitem()</strong></p>
+<p>Remove the last inserted item (random until python 3.7).</p>
+<pre class=""language-python""><code>data.popitem() # Last key:value pair is removed</code></pre>
+<p><strong>del object[key]</strong></p>
+<p>Remove specified item or dictionary if no <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""1"">key</span> is provided</p>
+<pre class=""language-python""><code>del data['age'] # Age item gets removed 
+del data # data is no longer in memory </code></pre>
+<p><strong>.clear()</strong></p>
+<p>Empties the dictionaries, in other words, delete all items but the dictionary.</p>
+<pre class=""language-python""><code>data.clear() # data becomes empty</code></pre>
+<h2>Loops</h2>
+<p>We can iterate dictionaries using <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""1"">for</span> loop and extract the information that we are interested in.</p>
+<h3>Keys</h3>
+<p>By default, when iterate dictionaries <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""1"">keys</span> are returned, even though we can explicitly say so.</p>
+<pre class=""language-python""><code>for key in data:
+    print(key)
+
+# Or
+for key in data.keys():
+    print(keys)
+# Or
+data_keys = data.fromkeys(data)</code></pre>
+<h3>Values</h3>
+<p>To extract values we simply replace <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""1"">.keys()</span> with <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""3"">.values()</span></p>
+<pre class=""language-python""><code>for value in data.values():
+    print(value)</code></pre>
+<h3>Pairs</h3>
+<p>And to get the pairs we use <span class=""notion-enable-hover"" style=""font-family: 'SFMono-Regular', Menlo, Consolas, 'PT Mono', 'Liberation Mono', Courier, monospace; line-height: normal; background: rgba(135,131,120,.15); color: #eb5757; border-radius: 4px; font-size: 85%; padding: 0.2em 0.4em;"" spellcheck=""false"" data-token-index=""1"">.items()</span> method.</p>
+<pre class=""language-python""><code>for key, value in data.items():
+    print(f'{key}:{value}')</code></pre>",1,thumbnails/region-2023-12-28_011702.jpg,2023-12-28 23:12:50,2024-01-12 20:30:49.242290,11,1,2,python-dictionary
