@@ -1,6 +1,10 @@
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -66,11 +70,26 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+# DATABASES = {
+#    "default": {
+#        "ENGINE": "django.db.backends.postgresql",
+#        "NAME": "verceldb",
+#        "PASSWORD": "DsLP2BtQ7dGy",
+#        "USER": "default",
+#        "PORT": 5432,
+#        "HOST": "ep-white-breeze-68219870-pooler.us-east-1.postgres.vercel-storage.com",
+#    }
+# }
+#
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": os.getenv("POSTGRES_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": os.getenv("POSTGRES_DATABASE", BASE_DIR / "db.sqlite3"),
+        "PORT": 5432,
+        "HOST": os.getenv("POSTGRES_HOST", "localhost"),
+        "USER": os.getenv("POSTGRES_USER", ""),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD", ""),
+        "URL": os.getenv("POSTGRES_URL", "localhost"),
     }
 }
 
@@ -111,6 +130,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles_build", "static")
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -152,3 +172,7 @@ AUTH_USER_MODEL = "users.User"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 LOGIN_URL = "/users/login/"
 LOGIN_REDIRECT_URL = "blog:home"
+
+# ------------- SECURITY ----------------
+CSRF_TRUSTED_ORIGINS = ["http://*", "https://*"]
+CORS_ORIGIN_ALLOW_ALL = True
