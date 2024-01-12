@@ -83,7 +83,7 @@ form {
 
   input,
   select {
-    border: 0.2rem solid map-get($colors, "bg");
+    border: 0.1rem solid rgba(0, 0, 0, 0.08);
     padding: 1.6rem 2.4rem;
     width: 100%;
     background: map-get($colors, "fg");

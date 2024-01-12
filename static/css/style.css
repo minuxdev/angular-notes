@@ -335,7 +335,7 @@ footer .divisor {
 
 .btn {
   display: inline-block;
-  border: 0.2rem solid transparent;
+  border: 0.1rem solid rgba(0, 0, 0, 0.08);
   background: none;
   cursor: pointer;
   white-space: nowrap;
@@ -446,7 +446,7 @@ form .separator {
 }
 form input,
 form select {
-  border: 0.2rem solid #f0f0f0;
+  border: 0.1rem solid rgba(0, 0, 0, 0.08);
   padding: 1.6rem 2.4rem;
   width: 100%;
   background: #fefefe;
