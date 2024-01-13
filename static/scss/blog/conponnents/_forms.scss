@@ -2,7 +2,7 @@
 
 form,
 .form {
-  max-width: $mobile;
+  max-width: $small;
   margin-inline: auto;
   @include padding;
 }
@@ -83,7 +83,7 @@ form {
 
   input,
   select {
-    border: 0.1rem solid rgba(0, 0, 0, 0.08);
+    border: 0.1rem solid map-get($colors, "border");
     padding: 1.6rem 2.4rem;
     width: 100%;
     background: map-get($colors, "fg");
@@ -96,8 +96,8 @@ form {
   &.search {
     max-width: $tablet;
     @include display-flex(0.8rem, center);
-    @include padding(0.4rem, 0.8rem);
-    border: 1px solid map-get($colors, "gray");
+    @include padding(0.4rem, 1.6rem);
+    border: 0.1rem solid map-get($colors, "border");
 
     i {
       color: map-get($colors, "placeholder");

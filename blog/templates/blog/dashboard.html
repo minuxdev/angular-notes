@@ -19,7 +19,7 @@
         <div class="content">
       <section class="top__table">
         <h2>Categories</h2>
-            <a class="btn btn-secondary" href="{% url 'blog:category_list' %}">
+            <a class="btn btn-secondary" href="{% url 'blog:category_create' %}">
                 <i class="fa-solid fa-plus"></i>
                 Add Category
             </a>
@@ -42,7 +42,7 @@
                             <td data-label="Id">{{ category.pk }}</td>
                             <td data-label="Author">{{ user.email }}</td>
                             <td data-label="Categories">{{ category.name }}</td>
-                            <td data-label="Total Posts">{{ category.views }}</td>
+                            <td data-label="Total Posts">{{ category.total_post }}</td>
                             <td data-label="Actions">
                                 <div>
                                 <a href="{% url 'blog:category_details' pk=category.pk %}">

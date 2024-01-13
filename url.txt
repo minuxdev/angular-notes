@@ -1,1 +1,1 @@
-https://django-blog-qvb80wflu-minuxdev.vercel.app
+https://django-blog-9butjny8n-minuxdev.vercel.app

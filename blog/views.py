@@ -4,6 +4,7 @@ from django.db import transaction
 from django.db.models import F, Q
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.urls import reverse
 
 from blog.forms import ArticleForm, CategoryForm
 from blog.models import Article, Category
@@ -65,9 +66,11 @@ def category_create(request):
     form = CategoryForm()
     if request.method == "POST":
         if form.is_valid():
-            category = form.save()
-            return redirect(category.get_absolute_url())
-    return render(request, "blog/dashboard.html", {"form": form})
+            author = request.user
+            name = request.POST.get("name")
+            category = Category.objects.get_or_create(name=name, author=author)
+            return redirect(reverse("dashboard"))
+    return render(request, "blog/category_create.html", {"form": form})
 
 
 def category_details(request, pk):

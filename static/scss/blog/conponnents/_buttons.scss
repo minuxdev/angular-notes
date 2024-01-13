@@ -2,7 +2,7 @@
 
 .btn {
   display: inline-block;
-  border: 0.1rem solid rgba(0, 0, 0, 0.08);
+  border: 0.1rem solid transparent;
   background: none;
   cursor: pointer;
   white-space: nowrap;
@@ -15,20 +15,21 @@
 
   &.btn-primary {
     background: map-get($colors, "primary");
-    color: map-get($colors, "title");
+    color: map-get($colors, "fg");
 
     &:hover {
       background: none;
       color: map-get($colors, "title");
-      border: 0.2rem solid map-get($colors, "primary");
+      border: 0.1rem solid map-get($colors, "primary");
     }
   }
 
   &.btn-secondary {
     color: map-get($colors, "title");
-    border: 0.2rem solid map-get($colors, "primary");
+    border: 0.1rem solid map-get($colors, "primary");
 
     &:hover {
+      color: map-get($colors, "fg");
       background: map-get($colors, "primary");
     }
   }

@@ -81,7 +81,7 @@ table th {
 }
 
 :root {
-  font-size: 62.5%;
+  font-size: 59.2%;
 }
 @media screen and (max-width: 768px) {
   :root {
@@ -335,7 +335,7 @@ footer .divisor {
 
 .btn {
   display: inline-block;
-  border: 0.1rem solid rgba(0, 0, 0, 0.08);
+  border: 0.1rem solid transparent;
   background: none;
   cursor: pointer;
   white-space: nowrap;
@@ -347,18 +347,19 @@ footer .divisor {
 }
 .btn.btn-primary {
   background: #c05b4d;
-  color: #2c2c2c;
+  color: #fefefe;
 }
 .btn.btn-primary:hover {
   background: none;
   color: #2c2c2c;
-  border: 0.2rem solid #c05b4d;
+  border: 0.1rem solid #c05b4d;
 }
 .btn.btn-secondary {
   color: #2c2c2c;
-  border: 0.2rem solid #c05b4d;
+  border: 0.1rem solid #c05b4d;
 }
 .btn.btn-secondary:hover {
+  color: #fefefe;
   background: #c05b4d;
 }
 .btn.btn-tertiary {
@@ -367,7 +368,7 @@ footer .divisor {
 
 form,
 .form {
-  max-width: 500px;
+  max-width: 375px;
   margin-inline: auto;
   padding: 2.4rem 2.4rem;
 }
@@ -446,14 +447,14 @@ form .separator {
 }
 form input,
 form select {
-  border: 0.1rem solid rgba(0, 0, 0, 0.08);
+  border: 0.1rem solid #cecece;
   padding: 1.6rem 2.4rem;
   width: 100%;
   background: #fefefe;
 }
 form input::placeholder,
 form select::placeholder {
-  color: #999;
+  color: #444;
 }
 form.search {
   max-width: 800px;
@@ -463,11 +464,11 @@ form.search {
   gap: 0.8rem;
   flex-wrap: wrap;
   flex-direction: row;
-  padding: 0.4rem 0.8rem;
-  border: 1px solid #888;
+  padding: 0.4rem 1.6rem;
+  border: 0.1rem solid #cecece;
 }
 form.search i {
-  color: #999;
+  color: #444;
 }
 form.search input {
   padding: 0.8rem 1.6rem;

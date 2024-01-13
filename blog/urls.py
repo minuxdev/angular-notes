@@ -10,7 +10,7 @@ urlpatterns = [
     path("", views.home, name="home"),
     path("dashboard/", views.dashboard, name="dashboard"),
     path("categories/", views.categories, name="category_list"),
-    path("categories/", views.category_create, name="category_create"),
+    path("categorie/add/", views.category_create, name="category_create"),
     path(
         "categories/details/<pk>/",
         views.category_details,
@@ -26,7 +26,7 @@ urlpatterns = [
         views.category_delete,
         name="category_delete",
     ),
-    path("article/create/", views.article_create, name="article_create"),
+    path("article/add/", views.article_create, name="article_create"),
     path(
         "article/update/<slug>/", views.article_update, name="article_update"
     ),

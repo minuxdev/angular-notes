@@ -5,11 +5,12 @@ $colors: (
   "body": #3a3a3a,
   "title": #2c2c2c,
   "input-bg": #f2f2f2,
-  "placeholder": #999,
+  "placeholder": #444,
   "gray": #888,
   "green": green,
   "blue": blue,
   "red": red,
+  "border": #cecece,
 );
 
 $transition: all 0.3 ease;
@@ -18,6 +19,7 @@ $container-padding: 3.2rem;
 
 $gutter: 2.4rem;
 
+$small: 375px;
 $mobile: 500px;
 $tablet: 800px;
 $laptop: 1200px;
