@@ -40,7 +40,7 @@
                     {% for category in page_obj %}
                         <tr>
                             <td data-label="Id">{{ category.pk }}</td>
-                            <td data-label="Author">{{ user.email }}</td>
+                            <td data-label="Author">{{ category.user.email }}</td>
                             <td data-label="Categories">{{ category.name }}</td>
                             <td data-label="Total Posts">{{ category.total_post }}</td>
                             <td data-label="Actions">
@@ -106,6 +106,7 @@
                         <th>Topics</th>
                         <th>Updated On</th>
                         <th>Views</th>
+                        <th>Posted</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -116,6 +117,7 @@
                             <td data-label="Topics">{{ article.topic }}</td>
                             <td data-label="Posted On">{{ article.updated_on }}</td>
                             <td data-label="Views">{{ article.views }}</td>
+                            <td data-label="Posted">{{ article.posted }}</td>
                             <td data-label="Actions">
       <div>
                                 <a href="{{ article.get_absolute_url }}">

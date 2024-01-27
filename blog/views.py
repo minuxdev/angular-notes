@@ -1,7 +1,8 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db import transaction
-from django.db.models import F, Q
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -28,6 +29,10 @@ def home(request):
         )
     else:
         articles = Article.articles.all()
+
+    if request.user.is_authenticated:
+        articles = articles.filter(author=request.user)
+
     page_obj = construct_pagination(request, articles, 4)
 
     context = {"articles": articles, "page_obj": page_obj}
@@ -55,22 +60,15 @@ def get_category(pk):
 
 
 def categories(request):
-    categories = Category.objects.filter(total_post__gt=0)
+    if request.user.is_authenticated:
+        categories = Category.objects.filter(
+            author=request.user, total_post__gt=0
+        )
+    else:
+        categories = Category.objects.filter(total_post__gt=0)
     page_obj = construct_pagination(request, categories, 4)
     context = {"page_obj": page_obj}
     return render(request, "blog/categories.html", context)
-
-
-@login_required()
-def category_create(request):
-    form = CategoryForm()
-    if request.method == "POST":
-        if form.is_valid():
-            author = request.user
-            name = request.POST.get("name")
-            category = Category.objects.get_or_create(name=name, author=author)
-            return redirect(reverse("dashboard"))
-    return render(request, "blog/category_create.html", {"form": form})
 
 
 def category_details(request, pk):
@@ -84,10 +82,27 @@ def category_details(request, pk):
     return render(request, "blog/category_details.html", context)
 
 
+# Management
+@login_required()
+def category_create(request):
+    form = CategoryForm()
+    if request.method == "POST":
+        if form.is_valid():
+            author = request.user
+            name = request.POST.get("name")
+            category = Category.objects.get_or_create(name=name, author=author)
+            return redirect(reverse("dashboard"))
+    return render(request, "blog/category_create.html", {"form": form})
+
+
 @login_required()
 def category_update(request, pk):
     category = get_category(pk)
-    return HttpResponse(category)
+    form = CategoryForm(request.POST or None, instance=category)
+    if form.is_valid():
+        form.save()
+        return redirect(f"{reverse('blog:dashboard')}?q=categories")
+    return render(request, "blog/category_create.html", {"form": form})
 
 
 @login_required()
@@ -96,30 +111,39 @@ def category_delete(request, pk):
     return HttpResponse(category)
 
 
-# Management
 @login_required()
 def article_create(request):
+    form = ArticleForm(request.POST or None)
     if request.method == "POST":
-        form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
             article = form.save(commit=False)
             article.author = request.user
+            article.thumbnail = request.POST.get("thumbnail")
             article.save()
+            messages.success(request, "You data was saved successfully!")
+            print(article.thumbnail)
             return redirect(article.get_absolute_url())
+        else:
+            print(form.errors)
 
-    form = ArticleForm()
     return render(request, "blog/article_create.html", {"form": form})
 
 
 @login_required()
 def article_update(request, slug):
     article = get_article(slug)
-    form = ArticleForm(
-        request.POST or None, request.FILES or None, instance=article
-    )
+    print(article.thumbnail)
+    form = ArticleForm(request.POST or None, instance=article)
     if form.is_valid():
-        form.save()
-        return redirect(article.get_absolute_url())
+        instance = form.save(commit=False)
+        instance.author = request.user
+        if request.FILES:
+            thumbnail = request.FILES.get("thumbnail", None)
+            instance.thumbnail = image_uploader(thumbnail)
+            print(instance.thumbnail)
+        instance.save()
+        # messages.success(request, "You data was saved successfully!")
+        return redirect(f"{reverse('blog:dashboard')}?q=articles")
 
     context = {"form": form}
     return render(request, "blog/article_create.html", context)
@@ -136,9 +160,9 @@ def article_delete(request, slug):
 def dashboard(request):
     query = request.GET.get("q", None)
     if query == "categories":
-        obj = Category.objects.all()
+        obj = Category.objects.filter(author=request.user)
     else:
-        obj = Article.objects.all()
+        obj = Article.objects.filter(author=request.user)
 
     recent_obj = obj[:6]
     page_obj = construct_pagination(request, obj, 4)

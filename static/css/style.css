@@ -401,6 +401,9 @@ form .input__group > a {
 form .input__group label {
   margin: 0;
 }
+form .tox.tox-tinymce {
+  min-height: 60rem;
+}
 form .inline__group {
   display: inline-flex;
   align-items: center;
@@ -454,7 +457,7 @@ form select {
 }
 form input::placeholder,
 form select::placeholder {
-  color: #444;
+  color: #aaa;
 }
 form.search {
   max-width: 800px;
@@ -468,7 +471,7 @@ form.search {
   border: 0.1rem solid #cecece;
 }
 form.search i {
-  color: #444;
+  color: #aaa;
 }
 form.search input {
   padding: 0.8rem 1.6rem;
@@ -575,6 +578,7 @@ header {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(32rem, 1fr));
   gap: 2.4rem;
+  grid-template-columns: repeat(auto-fit, minmax(38rem, 1fr));
 }
 @media screen and (max-width: 800px) {
   .container {

@@ -6,11 +6,15 @@ from django.urls import reverse
 from django.utils import timezone
 from tinymce import models as tm
 
+from blog.utils import get_image_url
+
 User = get_user_model()
 
 
 class Category(models.Model):
-    author = models.ManyToManyField(to=User, null=True, blank=True)
+    author = models.ForeignKey(
+        to=User, on_delete=models.SET_NULL, null=True, blank=True
+    )
     name = models.CharField(max_length=100, unique=True)
     total_post = models.IntegerField(verbose_name="total posts", default=0)
 
@@ -31,7 +35,9 @@ class ArticleManager(models.Manager):
 
 
 class Article(models.Model):
-    author = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=True)
+    author = models.ForeignKey(
+        to=User, on_delete=models.SET_NULL, blank=True, null=True
+    )
     category = models.ForeignKey(
         to=Category, on_delete=models.CASCADE, related_name="article"
     )
@@ -39,11 +45,12 @@ class Article(models.Model):
     body = tm.HTMLField()
     posted = models.BooleanField(default=False)
     thumbnail = models.ImageField(
-        upload_to="thumbnails/",
         null=True,
         blank=True,
         validators=[
-            FileExtensionValidator(allowed_extensions=["png", "jpg", "jpeg"]),
+            FileExtensionValidator(
+                allowed_extensions=["png", "jpg", "jpeg", "svg"]
+            ),
         ],
     )
     slug = AutoSlugField(
@@ -64,10 +71,9 @@ class Article(models.Model):
 
     def thumbnail_url(self):
         if self.thumbnail:
-            return self.thumbnail.url
+            return self.thumbnail
         else:
-            url = "#"
-            return url
+            return "#"
 
     def save(self, *args, **kwargs):
         if self.created_on is None and self.posted:

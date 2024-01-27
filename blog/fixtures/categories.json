@@ -1,56 +1,56 @@
 [
-{
-  "model": "blog.category",
-  "pk": 1,
-  "fields": {
-    "name": "Django",
-    "total_post": 0,
-    "author": []
+  {
+    "model": "blog.category",
+    "pk": 1,
+    "fields": {
+      "name": "Django",
+      "total_post": 0,
+      "author": 1
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 2,
+    "fields": {
+      "name": "Python",
+      "total_post": 0,
+      "author": 1
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 3,
+    "fields": {
+      "name": "Sass",
+      "total_post": 0,
+      "author": 1
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 4,
+    "fields": {
+      "name": "Linux",
+      "total_post": 0,
+      "author": 1
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 5,
+    "fields": {
+      "name": "SysAdmin",
+      "total_post": 0,
+      "author": 1
+    }
+  },
+  {
+    "model": "blog.category",
+    "pk": 6,
+    "fields": {
+      "name": "Javascript",
+      "total_post": 0,
+      "author": 1
+    }
   }
-},
-{
-  "model": "blog.category",
-  "pk": 2,
-  "fields": {
-    "name": "Python",
-    "total_post": 0,
-    "author": []
-  }
-},
-{
-  "model": "blog.category",
-  "pk": 3,
-  "fields": {
-    "name": "Sass",
-    "total_post": 0,
-    "author": []
-  }
-},
-{
-  "model": "blog.category",
-  "pk": 4,
-  "fields": {
-    "name": "Linux",
-    "total_post": 0,
-    "author": []
-  }
-},
-{
-  "model": "blog.category",
-  "pk": 5,
-  "fields": {
-    "name": "SysAdmin",
-    "total_post": 0,
-    "author": []
-  }
-},
-{
-  "model": "blog.category",
-  "pk": 6,
-  "fields": {
-    "name": "Javascript",
-    "total_post": 0,
-    "author": []
-  }
-}
 ]

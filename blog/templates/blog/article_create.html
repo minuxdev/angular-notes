@@ -1,6 +1,10 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+<head></head>
 {% block content %}
-    <form class="create__article" method="post" enctype="multipart/form-data">
+    <form name="article"
+          class="create__article"
+          method="post"
+          enctype="multipart/form-data">
         <h1>Create Article</h1>
         {% csrf_token %}
         <label for="{{ form.category.id_for_label }}">Category</label>
@@ -8,7 +12,10 @@
         {{ form.category }}
         <small>{{ form.password1.errors }}</small>
         <label for="{{ form.topic.id_for_label }}">Topic</label>
-        <input type="text" name="topic" placeholder="Article Topic" />
+        <input type="text"
+               name="topic"
+               value="{{ form.topic.value }}"
+               placeholder="Article Topic" />
         <small>{{ form.email.errors }}</small>
         <label for="{{ form.body.id_for_label }}">Body</label>
         {{ form.body }}
@@ -20,8 +27,9 @@
             </div>
             <div class="inline__group">
                 <label for="{{ form.thumbnail.id_for_label }}">Thumbnail</label>
-                {{ form.thumbnail }}
+                <input type="file" name="file" id="file" />
             </div>
+            <input type="hidden" name="thumbnail" id="thumbnail">
         </div>
         <button class="btn btn-primary">Create Article</button>
     </form>

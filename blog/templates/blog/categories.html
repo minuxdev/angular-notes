@@ -22,7 +22,7 @@
             {% endfor %}
         </div>
         {% comment %}Pagination{% endcomment %}
-        {% inlcude 'pagination.html' page_obj=page_obj %}
+        {% include 'blog/pagination.html' with page_obj=page_obj %}
     {% else %}
         <h1>No categories found!</h1>
     {% endif %}
