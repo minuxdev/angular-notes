@@ -42,10 +42,7 @@ class Article(models.Model):
     topic = models.CharField(max_length=255, unique=True)
     body = tm.HTMLField()
     posted = models.BooleanField(default=False)
-    thumbnail = models.TextField(
-        null=True,
-        blank=True,
-    )
+    thumbnail = models.FileField(null=True, blank=True, max_length=500)
     slug = AutoSlugField(
         populate_from="topic",
         blank=True,
