@@ -99,48 +99,6 @@
         <script src="{%static 'scripts/header.js' %}"></script>
         <script src="{% static 'highlight/highlight.min.js' %}"></script>
         <script>hljs.highlightAll();</script>
-        <script>
-  firebase_config = {
-    apiKey: "AIzaSyAMzmOZ79qPniWx399VJvfPmXmKIECgEJY",
-
-    authDomain: "django-firebase-4d325.firebaseapp.com",
-
-    databaseURL:
-      "https://django-firebase-4d325-default-rtdb.asia-southeast1.firebasedatabase.app",
-
-    projectId: "django-firebase-4d325",
-
-    storageBucket: "django-firebase-4d325.appspot.com",
-
-    messagingSenderId: "185167762255",
-
-    appId: "1:185167762255:web:274990549d5de2698f2b3a",
-
-    measurementId: "G-ZMYJKFW50E",
-  };
-
-  firebase = firebase.initializeApp(firebase_config);
-
-  const form = document.forms["article"];
-  console.log(form);
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    uploader();
-  });
-
-  async function uploader() {
-    const file = document.querySelector("#id_thumbnail").files[0];
-    const ref = firebase.storage().ref();
-    const name = `${new Date()}-${file.name}`;
-
-    const task = await ref.child("images/" + name).put(file);
-    const snapshot = await task;
-    const url = await snapshot.ref.getDownloadURL();
-    const el = document.querySelector("#thumbnail");
-    el.value = url;
-    console.log(el)
-    form.submit();
-  }
-        </script>
+        <script src="{% static 'scripts/uploader.js' %}"></script>
     </body>
 </html>

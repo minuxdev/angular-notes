@@ -1,3 +1,5 @@
+import json
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -132,21 +134,20 @@ def article_create(request):
 @login_required()
 def article_update(request, slug):
     article = get_article(slug)
-    print(article.thumbnail)
     form = ArticleForm(request.POST or None, instance=article)
-    if form.is_valid():
-        instance = form.save(commit=False)
-        instance.author = request.user
-        if request.FILES:
-            thumbnail = request.FILES.get("thumbnail", None)
-            instance.thumbnail = image_uploader(thumbnail)
-            print(instance.thumbnail)
-        instance.save()
-        # messages.success(request, "You data was saved successfully!")
-        return redirect(f"{reverse('blog:dashboard')}?q=articles")
+    if request.method == "POST":
+        if form.is_valid():
+            article = form.save(commit=False)
+            article.author = request.user
+            article.thumbnail = request.POST.get("thumbnail")
+            article.save()
+            messages.success(request, "You data was saved successfully!")
+            print(article.thumbnail)
+            return redirect(f"{reverse('blog:dashboard')}?q=articles")
+        else:
+            print(form.errors)
 
-    context = {"form": form}
-    return render(request, "blog/article_create.html", context)
+    return render(request, "blog/article_create.html", {"form": form})
 
 
 @login_required()
