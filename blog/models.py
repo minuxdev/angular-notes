@@ -6,8 +6,6 @@ from django.urls import reverse
 from django.utils import timezone
 from tinymce import models as tm
 
-from blog.utils import get_image_url
-
 User = get_user_model()
 
 
@@ -44,14 +42,9 @@ class Article(models.Model):
     topic = models.CharField(max_length=255, unique=True)
     body = tm.HTMLField()
     posted = models.BooleanField(default=False)
-    thumbnail = models.ImageField(
+    thumbnail = models.TextField(
         null=True,
         blank=True,
-        validators=[
-            FileExtensionValidator(
-                allowed_extensions=["png", "jpg", "jpeg", "svg"]
-            ),
-        ],
     )
     slug = AutoSlugField(
         populate_from="topic",
