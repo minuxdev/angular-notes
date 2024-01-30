@@ -129,7 +129,7 @@
   });
 
   async function uploader() {
-    const file = document.querySelector("#file").files[0];
+    const file = document.querySelector("#id_thumbnail").files[0];
     const ref = firebase.storage().ref();
     const name = `${new Date()}-${file.name}`;
 

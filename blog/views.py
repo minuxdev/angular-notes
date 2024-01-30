@@ -33,7 +33,7 @@ def home(request):
     if request.user.is_authenticated:
         articles = articles.filter(author=request.user)
 
-    page_obj = construct_pagination(request, articles, 4)
+    page_obj = construct_pagination(request, articles, 6)
 
     context = {"articles": articles, "page_obj": page_obj}
     return render(request, "blog/home.html", context)
@@ -66,7 +66,7 @@ def categories(request):
         )
     else:
         categories = Category.objects.filter(total_post__gt=0)
-    page_obj = construct_pagination(request, categories, 4)
+    page_obj = construct_pagination(request, categories, 6)
     context = {"page_obj": page_obj}
     return render(request, "blog/categories.html", context)
 
@@ -165,6 +165,6 @@ def dashboard(request):
         obj = Article.objects.filter(author=request.user)
 
     recent_obj = obj[:6]
-    page_obj = construct_pagination(request, obj, 4)
+    page_obj = construct_pagination(request, obj, 6)
     context = {"page_obj": page_obj, "query": query, "recent_obj": recent_obj}
     return render(request, "blog/dashboard.html", context)

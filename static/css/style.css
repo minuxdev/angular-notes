@@ -445,6 +445,10 @@ form .btn:has(i) i {
 form .btn.btn-primary {
   margin: 3.2rem 0;
 }
+form .btn.btn-primary:hover {
+  background: #c04a4c;
+  color: #fefefe;
+}
 form .separator {
   margin: 3.2rem 0;
 }
