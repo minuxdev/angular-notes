@@ -90,14 +90,20 @@
             border: none;
           }
           tr:nth-child(even) {
-            background: map-get($colors, "gray");
+            background: map-get($colors, "bg");
           }
           //min-width: $tablet;
-          th:first-child {
-            width: 10%;
-          }
-          th:nth-child(4) {
-            width: 12%;
+          &.articles {
+            th:first-child {
+              width: 15%;
+            }
+            th:nth-child(2) {
+              width: 30%;
+            }
+            th:nth-child(4),
+            th:nth-child(5) {
+              width: 12%;
+            }
           }
           th:last-child {
             width: 12rem;

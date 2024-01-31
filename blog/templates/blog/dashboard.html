@@ -25,11 +25,10 @@
             </a>
       </section>
       <div class="separator"></div>
-      <div class="table">
-            <table>
+      <div class="table ">
+            <table class="categories">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Author</th>
                         <th>Categories</th>
                         <th>Total Posts</th>
@@ -39,9 +38,9 @@
                 <tbody>
                     {% for category in page_obj %}
                         <tr>
-                            <td data-label="Id">{{ category.pk }}</td>
-                            <td data-label="Author">{{ category.user.email }}</td>
-                            <td data-label="Categories">{{ category.name }}</td>
+              <td data-pk={{category.pk}} style="display:none"></td>
+                            <td data-label="Author">{{ category.author }}</td>
+              <td data-label="Categories" data-name={{category.name}}>{{ category.name }}</td>
                             <td data-label="Total Posts">{{ category.total_post }}</td>
                             <td data-label="Actions">
                                 <div>
@@ -51,14 +50,14 @@
                                 <a href="{% url 'blog:category_update' pk=category.pk %}">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
-                                <a href="{% url 'blog:category_delete' pk=category.pk %}">
+                  <a onClick="deleteCategoryConfirmation()">
                                     <i class="fa-solid fa-trash"></i>
                                 </a>
                 </div>
                             </td>
                         </tr>
-                    </tbody>
                 {% endfor %}
+                    </tbody>
             </table>
       </div>
       {% comment %}Pagination{% endcomment %}
@@ -99,10 +98,10 @@
             </a>
           </section>
       <div class="table">
-            <table>
+            <table class="articles">
                 <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>Category</th>
                         <th>Topics</th>
                         <th>Updated On</th>
                         <th>Views</th>
@@ -113,8 +112,9 @@
                 <tbody>
                     {% for article in page_obj %}
                         <tr>
-                            <td data-label="Id">{{ article.pk }}</td>
-                            <td data-label="Topics">{{ article.topic }}</td>
+                            <td data-slug={{article.slug}} style="display: none;"></td>
+                            <td data-label="Category">{{ article.category.name }}</td>
+              <td data-label="Topics" data-topic={{article.topic}}>{{ article.topic }}</td>
                             <td data-label="Posted On">{{ article.updated_on }}</td>
                             <td data-label="Views">{{ article.views }}</td>
                             <td data-label="Posted">{{ article.posted }}</td>
@@ -126,7 +126,7 @@
                                 <a href="{% url 'blog:article_update' slug=article.slug %}">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
-                                <a href="{% url 'blog:article_delete' slug=article.slug %}">
+                  <a onClick="deleteArticleConfirmation()">
                                     <i class="fa-solid fa-trash"></i>
                                 </a>
       </div>

@@ -17,7 +17,7 @@ class Category(models.Model):
     total_post = models.IntegerField(verbose_name="total posts", default=0)
 
     class Meta:
-        ordering = ("-total_post",)
+        ordering = ("-total_post", "-id")
         verbose_name_plural = "categories"
 
     def __str__(self):

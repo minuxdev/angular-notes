@@ -785,12 +785,16 @@ header {
   border: none;
 }
 .dashboard .content__wrapper .content .table table tr:nth-child(even) {
-  background: #888;
+  background: #f0f0f0;
 }
-.dashboard .content__wrapper .content .table table th:first-child {
-  width: 10%;
+.dashboard .content__wrapper .content .table table.articles th:first-child {
+  width: 15%;
 }
-.dashboard .content__wrapper .content .table table th:nth-child(4) {
+.dashboard .content__wrapper .content .table table.articles th:nth-child(2) {
+  width: 30%;
+}
+.dashboard .content__wrapper .content .table table.articles th:nth-child(4),
+.dashboard .content__wrapper .content .table table.articles th:nth-child(5) {
   width: 12%;
 }
 .dashboard .content__wrapper .content .table table th:last-child {

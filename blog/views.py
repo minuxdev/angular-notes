@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 from django.db import transaction
 from django.db.models import Q
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 
 from blog.forms import ArticleForm, CategoryForm
@@ -57,10 +57,6 @@ def article_details(request, slug):
     return render(request, "blog/article_details.html", context=context)
 
 
-def get_category(pk):
-    return Category.objects.get(pk=pk)
-
-
 def categories(request):
     if request.user.is_authenticated:
         categories = Category.objects.filter(
@@ -74,7 +70,7 @@ def categories(request):
 
 
 def category_details(request, pk):
-    instance = get_category(pk)
+    instance = get_object_or_404(Category, pk=pk)
     articles = instance.article.all()
     page_obj = construct_pagination(request, articles, 8)
     context = {
@@ -87,19 +83,22 @@ def category_details(request, pk):
 # Management
 @login_required()
 def category_create(request):
-    form = CategoryForm()
+    form = CategoryForm(request.POST or None)
     if request.method == "POST":
         if form.is_valid():
             author = request.user
             name = request.POST.get("name")
-            category = Category.objects.get_or_create(name=name, author=author)
-            return redirect(reverse("dashboard"))
+            category, status = Category.objects.get_or_create(
+                name=name, author=author
+            )
+            print(category.author)
+            return redirect(f"{reverse('blog:dashboard')}?q=categories")
     return render(request, "blog/category_create.html", {"form": form})
 
 
 @login_required()
 def category_update(request, pk):
-    category = get_category(pk)
+    category = get_object_or_404(Category, pk=pk)
     form = CategoryForm(request.POST or None, instance=category)
     if form.is_valid():
         form.save()
@@ -109,8 +108,9 @@ def category_update(request, pk):
 
 @login_required()
 def category_delete(request, pk):
-    category = get_category(pk)
-    return HttpResponse(category)
+    category = get_object_or_404(Category, pk=pk)
+    category.delete()
+    return redirect(f"{reverse('blog:dashboard')}?q=categories")
 
 
 @login_required()
