@@ -128,6 +128,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 TINYMCE_DEFAULT_CONFIG = {
+    "selector": "textarea",
     "theme": "silver",
     "resize": "false",
     "width": "100%",
@@ -151,6 +152,7 @@ TINYMCE_DEFAULT_CONFIG = {
         {"text": "Javascript", "value": "javascript"},
         {"text": "HTML/XML", "value": "markup"},
         {"text": "CSS", "value": "css"},
+        {"text": "SASS", "value": "sass"},
     ],
 }
 

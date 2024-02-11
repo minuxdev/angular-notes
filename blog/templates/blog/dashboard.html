@@ -1,17 +1,22 @@
 {% extends "dashboard_base.html" %}
+{% load static %}
 {% block content %}
     <div class="header">
-        <div class="card">
-            <i class="fa-solid fa-plus"></i>
+        <div class="hero__header">
+          <i id='toggle__bars' data-toggler class="fa-solid fa-bars"></i>
+          
+        <div class="user__profile">
+          <p>{{request.user.email}}</p>
+          <img src="{% static 'images/profile/default.jpg' %}" class="avatar">
         </div>
-        <div class="card">
-            <i class="fa-solid fa-plus"></i>
-        </div>
-        <div class="card">
-            <i class="fa-solid fa-plus"></i>
-        </div>
-        <div class="card">
-            <i class="fa-solid fa-plus"></i>
+      </div>
+        <div class="charts">
+          <div class="card">
+              <i class="fa-solid fa-plus"></i>
+          </div>
+          <div class="card">
+              <i class="fa-solid fa-plus"></i>
+          </div>
         </div>
     </div>
     {% comment %}Main content{% endcomment %}
